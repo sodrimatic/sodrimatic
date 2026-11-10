@@ -50,10 +50,25 @@ function uploadFrameApiPlugin(): Plugin {
   };
 }
 
-export default defineConfig(() => {
+function publicPathPrefixPlugin(base: string): Plugin {
   return {
-    base: './',
-    plugins: [react(), tailwindcss(), uploadFrameApiPlugin()],
+    name: 'public-path-prefix-plugin',
+    transform(code, id) {
+      if (base !== '/' && (id.endsWith('.jsx') || id.endsWith('.tsx') || id.endsWith('.js') || id.endsWith('.ts'))) {
+        return {
+          code: code.replace(/(["'])\/(images|new)\//g, `$1${base}$2/`),
+          map: null,
+        };
+      }
+    },
+  };
+}
+
+export default defineConfig(({ mode }) => {
+  const base = mode === 'production' ? '/sodrimatic/' : '/';
+  return {
+    base,
+    plugins: [react(), tailwindcss(), uploadFrameApiPlugin(), publicPathPrefixPlugin(base)],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
