@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-ivory: #F7F8E8;
+  --color-brand-freshLeaf: #D7E4B8;
+  --color-brand-botanical: #B7C987;
+  --color-brand-naturalGreen: #7DA457;
+  --color-brand-forest: #3E4F2A;
+  --color-brand-lotusPink: #F3A1C3;
+  --color-brand-magentaPink: #D86C9A;
+  --color-brand-richPink: #C43A6B;
+  --color-brand-marigold: #FDE08A;
+  --color-brand-warmGold: #D4B458;
+  --color-brand-sandBeige: #E6DCC7;
+
+  --color-text-heading: #3E4F2A;
+  --color-text-body: #6E8E3E;
+  --color-text-caption: #9FB77A;
+  --color-text-interactive: #D86C9A;
+  --color-text-highlight: #C43A6B;
+  --color-text-disabled: #A89E82;
+
+  --font-beau: 'Beau Rivage', cursive;
+  --font-bodoni: 'Bodoni Moda', Georgia, serif;
+  --font-josefin: 'Josefin Sans', sans-serif;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Josefin Sans', sans-serif;
+    color: #3E4F2A;
+    background-color: #F7F8E8;
+  }
+
+  /* Prevent horizontal bouncing or overflow on mobile */
+  body {
+    overflow-x: clip;
+    min-height: 100dvh;
+    touch-action: manipulation;
+  }
+}
+
+/* Custom Utilities for Luxury Wedding Accents */
+.gold-shimmer {
+  background: linear-gradient(135deg, #ECC870 0%, #D4B458 35%, #FDE08A 65%, #C29A3A 100%);
+}
+
+.gold-foil-border {
+  border-image: linear-gradient(135deg, #ECC870, #D4B458, #FDE08A, #C29A3A) 1;
+}
+
+.polaroid-shadow {
+  box-shadow: 0 10px 30px -4px rgba(62, 79, 42, 0.16), 0 4px 6px -2px rgba(62, 79, 42, 0.08);
+}
+
+.soft-glow-pink {
+  box-shadow: 0 10px 28px -4px rgba(243, 161, 195, 0.5);
+}
+
+.soft-glow-gold {
+  box-shadow: 0 10px 28px -4px rgba(212, 180, 88, 0.35);
+}
+
+/* Touch action none strictly for scratch card canvas */
+.touch-none {
+  touch-action: none !important;
+}
+
+/* Fluid typography helpers */
+.fluid-title {
+  font-size: clamp(2rem, 5vw + 1rem, 4.5rem);
+}
+
+.fluid-subtitle {
+  font-size: clamp(1.2rem, 2.5vw + 0.5rem, 2rem);
+}

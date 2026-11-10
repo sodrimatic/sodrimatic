@@ -1,0 +1,6 @@
+{
+  "name": "Dhriti & Soham Wedding",
+  "description": "Interactive mobile-first luxury wedding web application for Dhriti & Soham featuring Mumbai-to-Manhattan story, scratch countdown, tug-of-war, blessings, polaroid gallery, and RSVP.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
