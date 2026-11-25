@@ -469,20 +469,30 @@ export function prefetchCelebrationData() {
   }
 }
 
+import { validateGuestName, validateBlessingText, isSafeImageDataUrl, sanitizeText } from './security.js';
+
 /**
  * Submit blessing to Google Apps Script with optimistic instant local caching
  */
 export async function submitBlessing(blessingText) {
+  // Validate and sanitize blessing text
+  const validation = validateBlessingText(blessingText);
+  if (!validation.valid) {
+    throw new Error(validation.error || 'Invalid blessing text');
+  }
+
+  const cleanBlessing = validation.sanitized;
+
   const payload = {
     action: 'addBlessing',
-    blessing: blessingText,
+    blessing: cleanBlessing,
     timestamp: new Date().toISOString()
   };
 
   // Optimistic instant update to in-memory & localStorage
   try {
     const current = getInitialBlessings();
-    const updatedBlessings = [blessingText, ...current.blessings.filter((b) => b !== blessingText)];
+    const updatedBlessings = [cleanBlessing, ...current.blessings.filter((b) => b !== cleanBlessing)];
     const updated = {
       blessings: updatedBlessings,
       count: (current.count || 0) + 1,
@@ -514,10 +524,17 @@ export async function submitBlessing(blessingText) {
  * Upload Photo (Base64) to Google Drive (UploadedPhotos folder) via Apps Script
  */
 export async function uploadMemoryPhoto({ base64, caption, mimeType }) {
+  // Security verification: enforce genuine image base64 data URL
+  if (!isSafeImageDataUrl(base64)) {
+    throw new Error('Security check failed: Invalid image payload.');
+  }
+
+  const cleanCaption = sanitizeText(caption || '', 100);
+
   const payload = {
     action: 'uploadPhoto',
     base64,
-    caption: caption || '',
+    caption: cleanCaption,
     mimeType: mimeType || 'image/jpeg',
     timestamp: new Date().toISOString()
   };
@@ -547,9 +564,21 @@ export async function uploadMemoryPhoto({ base64, caption, mimeType }) {
  * Submit RSVP to Google Apps Script
  */
 export async function submitRsvp(rsvpData) {
+  // Validate and sanitize guest name
+  const nameValidation = validateGuestName(rsvpData?.name);
+  if (!nameValidation.valid) {
+    throw new Error(nameValidation.error || 'Invalid name provided.');
+  }
+
+  const cleanRsvp = {
+    ...rsvpData,
+    name: nameValidation.sanitized,
+    message: sanitizeText(rsvpData?.message || '', 250),
+  };
+
   const payload = {
     action: 'rsvp',
-    ...rsvpData,
+    ...cleanRsvp,
     timestamp: new Date().toISOString()
   };
 

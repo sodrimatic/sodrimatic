@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { submitBlessing, fetchBlessings, getInitialBlessings, onBlessingsUpdated } from '../services/api.js';
+import { validateBlessingText } from '../services/security.js';
 import GameTitleBoard from './GameTitleBoard.jsx';
 
 // Default starter blessings ensuring all 7 wishing papers are gracefully filled
@@ -67,6 +68,7 @@ export default function BlessingsSection({ embedded = false }) {
   const [customBlessing, setCustomBlessing] = useState('');
   const [selectedTag, setSelectedTag] = useState(null);
   const [lastSubmitted, setLastSubmitted] = useState('');
+  const [validationError, setValidationError] = useState('');
   const [recentBlessings, setRecentBlessings] = useState(() => {
     if (initialData.blessings && initialData.blessings.length > 0) {
       const valid = initialData.blessings.filter(
@@ -156,10 +158,18 @@ export default function BlessingsSection({ embedded = false }) {
 
   const handleCustomSubmit = async (e) => {
     e.preventDefault();
-    if (!customBlessing.trim()) return;
+    
+    // Security validation against script injection, HTML tags, and length
+    const validation = validateBlessingText(customBlessing);
+    if (!validation.valid) {
+      setValidationError(validation.error || 'Please enter a valid blessing.');
+      setTimeout(() => setValidationError(''), 3500);
+      return;
+    }
 
+    setValidationError('');
     setIsSubmitting(true);
-    const blessingText = customBlessing.trim();
+    const blessingText = validation.sanitized;
     setLastSubmitted(blessingText);
     setBlessingCount((prev) => prev + 1);
     triggerPetals();
@@ -169,7 +179,11 @@ export default function BlessingsSection({ embedded = false }) {
 
     setCustomBlessing('');
     setShowSuccessToast(true);
-    await submitBlessing(blessingText);
+    try {
+      await submitBlessing(blessingText);
+    } catch (err) {
+      console.warn('Blessing submission warning:', err);
+    }
     setIsSubmitting(false);
     setTimeout(() => {
       setShowSuccessToast(false);
@@ -422,8 +436,12 @@ export default function BlessingsSection({ embedded = false }) {
           <form onSubmit={handleCustomSubmit} className="relative flex items-center">
             <input
               type="text"
+              maxLength={280}
               value={customBlessing}
-              onChange={(e) => setCustomBlessing(e.target.value)}
+              onChange={(e) => {
+                setCustomBlessing(e.target.value);
+                if (validationError) setValidationError('');
+              }}
               placeholder={t.blessings?.placeholder || 'Or write your own heartfelt blessing for Dhriti & Soham...'}
               className="w-full min-h-[46px] sm:min-h-[50px] pl-5 pr-20 py-2.5 rounded-full border border-[#C8A870]/70 bg-white/95 text-xs sm:text-sm font-josefin text-[#2E3B1C] placeholder-[#8C9E73] focus:outline-none focus:ring-2 focus:ring-[#849678] shadow-sm"
             />
@@ -436,6 +454,20 @@ export default function BlessingsSection({ embedded = false }) {
               <span>Send</span>
             </button>
           </form>
+
+          {/* Validation Error Notice */}
+          <AnimatePresence>
+            {validationError && (
+              <motion.div
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="mt-2 text-center text-xs font-josefin text-rose-300 font-semibold drop-shadow-xs"
+              >
+                {validationError}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Success Notification */}
           <AnimatePresence>

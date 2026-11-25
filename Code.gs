@@ -833,7 +833,7 @@ function handleRsvp(data) {
     const row = headers.map(function(h) {
       if (h.indexOf("time") > -1 || h.indexOf("date") > -1) return new Date();
       if (h.indexOf("name") > -1) return data.name || "Anonymous";
-      if (h.indexOf("attend") > -1) return data.attending ? "Joyfully Accepts" : "Regretfully Declines";
+      if (h.indexOf("attend") > -1) return data.attending ? "Joyfully Accept" : "Regretfully Decline";
       if (h.indexOf("guest") > -1) return data.guests || (data.attending ? "Attending" : "-");
       if (h.indexOf("diet") > -1) return data.dietary || "-";
       if (h.indexOf("mess") > -1 || h.indexOf("note") > -1 || h.indexOf("wish") > -1) return data.message || "";
@@ -844,7 +844,7 @@ function handleRsvp(data) {
     sheet.appendRow([
       new Date(),
       data.name || "Anonymous",
-      data.attending ? "Joyfully Accepts" : "Regretfully Declines",
+      data.attending ? "Joyfully Accepts" : "Regretfully Decline",
       data.message || ""
     ]);
   }

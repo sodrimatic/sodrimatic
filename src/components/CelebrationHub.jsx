@@ -77,10 +77,10 @@ export default function CelebrationHub() {
 
   return (
     <section id="celebrate" className="relative p-0 md:p-[20px] bg-[#849678] overflow-hidden">
-      
+
       {/* Wrapper */}
       <div className="relative w-full">
-        
+
         {/* Parchment background for Desktop Only (>= 768px): Mobile keeps strictly the pure green background */}
         <div className="hidden md:block absolute inset-0 w-full h-full pointer-events-none select-none z-0">
           <img
@@ -101,9 +101,7 @@ export default function CelebrationHub() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="text-center mb-5 sm:mb-6"
           >
-            <span className="font-josefin text-xs tracking-[0.25em] text-[#FDE08A] md:text-[#55693C] uppercase font-bold block mb-1 drop-shadow-xs md:drop-shadow-none">
-              {t.celebrationHub?.kicker || 'THE CELEBRATION LOUNGE'}
-            </span>
+
             <h2 className="font-lora text-3xl sm:text-4xl lg:text-5xl text-white md:text-[#2B1B12] font-semibold tracking-wide drop-shadow-xs md:drop-shadow-none">
               {t.celebrationHub?.title || 'Celebration Lounge'}
             </h2>
@@ -130,11 +128,10 @@ export default function CelebrationHub() {
                   <button
                     key={tab.id}
                     onClick={() => handleTabClick(tab)}
-                    className={`min-h-[44px] sm:min-h-[48px] px-1 sm:px-4 py-2 rounded-xl font-josefin text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 cursor-pointer select-none text-center ${
-                      isActive
-                        ? 'bg-[#C43A6B] text-white shadow-md'
-                        : 'text-[#2B1B12] hover:text-[#C43A6B] hover:bg-white/50'
-                    }`}
+                    className={`min-h-[44px] sm:min-h-[48px] px-1 sm:px-4 py-2 rounded-xl font-josefin text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 cursor-pointer select-none text-center ${isActive
+                      ? 'bg-[#C43A6B] text-white shadow-md'
+                      : 'text-[#2B1B12] hover:text-[#C43A6B] hover:bg-white/50'
+                      }`}
                     aria-label={tab.label}
                     aria-pressed={isActive}
                   >

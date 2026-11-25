@@ -18,16 +18,22 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { uploadMemoryPhoto, fetchMemoryPhotos, getInitialMemoryPhotos, onPhotosUpdated } from '../services/api.js';
+import { validateImageFile, sanitizeFileName, isSafeImageDataUrl, MAX_BATCH_PHOTO_COUNT } from '../services/security.js';
 import { Camera, Upload, X, Shuffle, Sparkles, Heart, Check, ZoomIn, Plus } from 'lucide-react';
 import GameTitleBoard from './GameTitleBoard.jsx';
 
-// Client-side image compression: prevents network stalls & Google Apps Script payload overflow
+// Client-side image compression & security pixel sanitation
 function compressImage(file, maxDimension = 1920, quality = 0.85) {
   return new Promise((resolve) => {
-    if (!file || !file.type || !file.type.startsWith('image/')) {
+    // 1. Strict security validation (MIME, size, extension)
+    const validation = validateImageFile(file);
+    if (!validation.valid) {
       resolve(null);
       return;
     }
+
+    const cleanFileName = sanitizeFileName(file.name);
+
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
@@ -47,20 +53,28 @@ function compressImage(file, maxDimension = 1920, quality = 0.85) {
         canvas.height = height;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
+
+        // Canvas re-encoding strips any embedded malicious payload from the original binary
         const dataUrl = canvas.toDataURL('image/jpeg', quality);
+
+        if (!isSafeImageDataUrl(dataUrl)) {
+          resolve(null);
+          return;
+        }
+
         resolve({
           base64: dataUrl,
           mimeType: 'image/jpeg',
-          name: file.name,
+          name: cleanFileName,
         });
       };
+
+      // SECURITY FIX: If image fails to decode cleanly on canvas, REJECT IT.
       img.onerror = () => {
-        resolve({
-          base64: e.target.result,
-          mimeType: file.type || 'image/jpeg',
-          name: file.name,
-        });
+        console.warn('Image decode error: Rejected non-image or corrupted payload');
+        resolve(null);
       };
+
       img.src = e.target.result;
     };
     reader.onerror = () => resolve(null);
@@ -350,6 +364,7 @@ export default function MemoryWall({ embedded = false, isActive = true }) {
   const [uploadProgress, setUploadProgress] = useState({ current: 0, total: 0 });
   const [uploadedCount, setUploadedCount] = useState(0);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [uploadError, setUploadError] = useState('');
   const [lightboxPhoto, setLightboxPhoto] = useState(null);
 
   // Helper to compare photo arrays by id/url to avoid unnecessary layout shifts
@@ -446,23 +461,63 @@ export default function MemoryWall({ embedded = false, isActive = true }) {
     setDisplayedPhotos((prev) => getDisplayPhotos(approvedPhotos, displayCount, prev));
   }, [approvedPhotos, displayCount]);
 
-  // Handle local image file selection (supports single and multiple files)
+  // Handle local image file selection with strict security validation
   const handleFileChange = async (e) => {
-    const fileList = e.target.files ? Array.from(e.target.files) : [];
-    if (fileList.length === 0) return;
+    const rawList = e.target.files ? Array.from(e.target.files) : [];
+    if (rawList.length === 0) return;
+
+    setUploadError('');
+
+    // 1. Batch size limit protection (DoS / Memory overflow prevention)
+    let fileList = rawList;
+    if (fileList.length > MAX_BATCH_PHOTO_COUNT) {
+      fileList = fileList.slice(0, MAX_BATCH_PHOTO_COUNT);
+      setUploadError(`Maximum ${MAX_BATCH_PHOTO_COUNT} photos allowed per upload batch.`);
+    }
+
+    // 2. Validate each file individually against executable, SVG, and non-image vectors
+    const rejectedErrors = [];
+    const safeFiles = [];
+
+    for (const f of fileList) {
+      const val = validateImageFile(f);
+      if (val.valid) {
+        safeFiles.push(f);
+      } else {
+        rejectedErrors.push(val.error);
+      }
+    }
+
+    if (rejectedErrors.length > 0) {
+      setUploadError(rejectedErrors[0]);
+    }
+
+    if (safeFiles.length === 0) {
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      return;
+    }
 
     setIsProcessing(true);
     try {
-      const processed = await Promise.all(fileList.map((f) => compressImage(f)));
+      const processed = await Promise.all(safeFiles.map((f) => compressImage(f)));
       const validFiles = processed
         .filter(Boolean)
         .map((item, idx) => ({
           id: `${Date.now()}-${idx}-${Math.random().toString(36).slice(2, 7)}`,
           ...item,
         }));
-      setSelectedFiles((prev) => [...prev, ...validFiles]);
+
+      if (validFiles.length < safeFiles.length) {
+        setUploadError('One or more files could not be processed as valid images.');
+      }
+
+      setSelectedFiles((prev) => {
+        const combined = [...prev, ...validFiles];
+        return combined.slice(0, MAX_BATCH_PHOTO_COUNT);
+      });
     } catch (err) {
       console.error('Photo processing error:', err);
+      setUploadError('An error occurred while preparing your photos.');
     } finally {
       setIsProcessing(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -670,15 +725,22 @@ export default function MemoryWall({ embedded = false, isActive = true }) {
                     </div>
                   ) : (
                     <form onSubmit={handleUploadSubmit} className="flex flex-col gap-4 font-josefin">
-                      {/* Hidden File Input supporting multiple files */}
+                      {/* Hidden File Input strictly supporting photographic image formats */}
                       <input
                         ref={fileInputRef}
                         type="file"
-                        accept="image/*"
+                        accept="image/jpeg,image/png,image/webp,image/gif,image/heic,image/heif"
                         multiple
                         onChange={handleFileChange}
                         className="hidden"
                       />
+
+                      {/* Security / Validation Notice Banner */}
+                      {uploadError && (
+                        <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 flex items-center gap-2">
+                          <span className="font-semibold">{uploadError}</span>
+                        </div>
+                      )}
 
                       {selectedFiles.length === 0 ? (
                         /* Empty State: Tap/Drop Area */

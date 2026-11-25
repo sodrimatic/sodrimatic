@@ -33,7 +33,7 @@ export const content = {
   hero: {
     coupleNames: "Dhriti & Soham",
     subtitle: "our forever begins",
-    tagline: "Join the chaos and the vows",
+    tagline: "Join us for the celebrations and vows",
   },
 
   // Section 2A: Conversational Chat Reveal
@@ -176,8 +176,8 @@ export const content = {
     nameLabel: "Your Full Name",
     namePlaceholder: "Dhriti & Soham",
     attendingLabel: "Are you attending?",
-    yes: "Joyfully Accepts",
-    no: "Regretfully Declines",
+    yes: "Joyfully Accept",
+    no: "Regretfully Decline",
     submit: "CONFIRM RSVP",
     submitting: "Submitting...",
     successTitle: "RSVP Received",

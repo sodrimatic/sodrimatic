@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Master Layout for Dhriti & Soham Wedding Application.
- * Coordinates LanguageContext, Scene 0 Car Intro, Top Bar, All 9 Visual Sections,
+ * Coordinates LanguageContext, Scene 0 Envelope Intro, Top Bar, All 6 Visual Sections,
  * and Mobile-First Touch Ergonomics.
  */
 
@@ -16,8 +16,8 @@ import GatewayHero from './components/GatewayHero.jsx';
 import ChatReveal from './components/ChatReveal.jsx';
 import ScratchCard from './components/ScratchCard.jsx';
 import MeetCouple from './components/MeetCouple.jsx';
-import RSVPSection from './components/RSVPSection.jsx';
 import CelebrationHub from './components/CelebrationHub.jsx';
+import RSVPSection from './components/RSVPSection.jsx';
 import Footer from './components/Footer.jsx';
 import { prefetchCelebrationData } from './services/api.js';
 
@@ -59,7 +59,7 @@ function WeddingAppContent() {
       {/* Sticky Navigation Bar */}
       <Navbar onReplayIntro={() => setShowEnvelopeIntro(true)} />
 
-      {/* Main Single-Page Narrative Flow */}
+      {/* Main Single-Page Narrative Flow (Continuous Vertical Scroll) */}
       <main className="flex-1 w-full overflow-x-clip">
         {/* Section 1: The Gateway Hero (Mumbai meets New York) */}
         <GatewayHero />

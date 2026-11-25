@@ -19,6 +19,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { submitRsvp } from '../services/api.js';
+import { validateGuestName } from '../services/security.js';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function RSVPSection() {
@@ -33,8 +34,11 @@ export default function RSVPSection() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!fullName.trim()) {
-      setErrorMsg('Please enter your full name');
+    
+    // Security validation against script injection, HTML tags, and invalid length
+    const validation = validateGuestName(fullName);
+    if (!validation.valid) {
+      setErrorMsg(validation.error || 'Please enter a valid full name.');
       return;
     }
 
@@ -43,7 +47,7 @@ export default function RSVPSection() {
 
     try {
       await submitRsvp({
-        name: fullName.trim(),
+        name: validation.sanitized,
         attending: isAttending,
         message: '',
       });
@@ -166,6 +170,7 @@ export default function RSVPSection() {
                     <input
                       type="text"
                       required
+                      maxLength={80}
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder={t.rsvp?.namePlaceholder || 'Dhriti & Soham'}
@@ -189,7 +194,7 @@ export default function RSVPSection() {
                         }`}
                       >
                         <span className={`block font-lora font-bold text-sm sm:text-base leading-tight ${isAttending ? 'text-[#8B264A]' : 'text-[#2B1B12]'}`}>
-                          {t.rsvp?.yes || 'Joyfully Accepts'}
+                          {t.rsvp?.yes || 'Joyfully Accept'}
                         </span>
                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all shrink-0 ml-2 ${
                           isAttending ? 'border-[#C43A6B] bg-[#C43A6B] text-white shadow-xs' : 'border-[#C8A870]/60'
@@ -208,7 +213,7 @@ export default function RSVPSection() {
                         }`}
                       >
                         <span className={`block font-lora font-bold text-sm sm:text-base leading-tight ${!isAttending ? 'text-[#2B1B12]' : 'text-[#2B1B12]'}`}>
-                          {t.rsvp?.no || 'Regretfully Declines'}
+                          {t.rsvp?.no || 'Regretfully Decline'}
                         </span>
                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all shrink-0 ml-2 ${
                           !isAttending ? 'border-[#5C4028] bg-[#5C4028] text-white shadow-xs' : 'border-[#C8A870]/60'
@@ -278,7 +283,7 @@ export default function RSVPSection() {
                   <div className="mt-4 p-4 rounded-xl border border-[#D4AF37]/50 bg-[#FFFDF8] shadow-xs w-full max-w-sm text-xs text-[#2B1B12] flex items-center justify-between">
                     <span className="font-bold">{fullName}</span>
                     <span className={`px-2 py-0.5 rounded-full font-semibold ${isAttending ? 'bg-[#FCE8F0] text-[#C43A6B]' : 'bg-[#EFE7DC] text-[#5C4028]'}`}>
-                      {isAttending ? 'Joyfully Accepts' : 'Regretfully Declines'}
+                      {isAttending ? 'Joyfully Accept' : 'Regretfully Decline'}
                     </span>
                   </div>
 
