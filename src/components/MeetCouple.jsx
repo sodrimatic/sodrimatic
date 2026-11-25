@@ -33,13 +33,17 @@ export default function MeetCouple() {
     surname: t.people?.brideFamily?.familySurname || 'THE SHAH FAMILY',
     grandparentsLabel: t.people?.brideFamily?.grandparentsLabel || 'GRANDPARENTS',
     grandparents: t.people?.brideFamily?.grandparents || [
-      'Dashrathlal Khemchandlal Shah',
-      'Jyotsna Dashrathlal Shah',
+      'Late Shri Dashrathlal Khemchandlal Shah',
+      'Late Smt Jyotsnaben Dashrathlal Shah',
+    ],
+    grandparents2: t.people?.brideFamily?.grandparents2 || [
+      'Shri Harshadbhai Ramanlal Shah',
+      'Smt Kundanben Harshad Shah',
     ],
     parentsLabel: t.people?.brideFamily?.parentsLabel || 'PARENTS',
     parents: t.people?.brideFamily?.parents || [
-      'Kalpesh Dashrathlal Shah',
-      'Ami Kalpesh Shah',
+      'Shri Kalpesh Dashrathlal Shah',
+      'Smt Ami Kalpesh Shah',
     ],
     siblingsLabel: t.people?.brideFamily?.siblingsLabel || 'SIBLING',
     siblings: t.people?.brideFamily?.siblings || [
@@ -51,13 +55,17 @@ export default function MeetCouple() {
     surname: t.people?.groomFamily?.familySurname || 'THE MEHTA FAMILY',
     grandparentsLabel: t.people?.groomFamily?.grandparentsLabel || 'GRANDPARENTS',
     grandparents: t.people?.groomFamily?.grandparents || [
-      'Rameshchandra Mehta',
-      'Ritaben Rameshchandra Mehta',
+      'Late Shri Rameshchandra Shankardas Mehta',
+      'Late Smt Ritaben Rameshchandra Mehta',
+    ],
+    grandparents2: t.people?.groomFamily?.grandparents2 || [
+      'Late Shri Chhabildas Dhanji Bhuva',
+      'Late Smt Elaben Chhabildas Bhuva',
     ],
     parentsLabel: t.people?.groomFamily?.parentsLabel || 'PARENTS',
     parents: t.people?.groomFamily?.parents || [
-      'Manish Rameshchandra Mehta',
-      'Jigna Manish Mehta',
+      'Shri Manish Rameshchandra Mehta',
+      'Smt Jigna Manish Mehta',
     ],
     siblingsLabel: t.people?.groomFamily?.siblingsLabel || 'SIBLING',
     siblings: t.people?.groomFamily?.siblings || [
@@ -66,7 +74,7 @@ export default function MeetCouple() {
   };
 
   return (
-    <section id="people" className="relative w-full py-16 sm:py-20 lg:py-24 px-3 sm:px-6 bg-[#FAF6EE] overflow-hidden">
+    <section id="people" className="relative w-full pt-16 sm:pt-20 lg:pt-24 pb-0 bg-[#FAF6EE] overflow-hidden">
 
       {/* Background Stucco Wall Texture (Subtle warm stone) */}
       <div
@@ -78,7 +86,7 @@ export default function MeetCouple() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10 px-3 sm:px-6">
 
         {/* ================================================================ */}
         {/* SECTION HEADER                                                  */}
@@ -93,11 +101,11 @@ export default function MeetCouple() {
           <span className="font-josefin text-xs tracking-[0.25em] text-[#6E8752] uppercase font-bold block mb-1">
             {t.people?.sectionSubtitle || 'THE TWO SOULS BEHIND THIS CELEBRATION'}
           </span>
-          <h2 className="font-bodoni text-3xl sm:text-4xl lg:text-5xl text-[#2B1B12] font-semibold tracking-wide">
+          <h2 className="font-lora text-3xl sm:text-4xl lg:text-5xl text-[#2B1B12] font-semibold tracking-wide">
             {t.people?.sectionTitle || 'Meet the Bride & Groom'}
           </h2>
           <div className="w-12 h-0.5 bg-[#B8860B] mx-auto my-2 rounded-full shadow-xs" />
-          <p className="font-beau italic text-xl sm:text-2xl lg:text-3xl text-[#C43A6B] tracking-wide">
+          <p className="font-vibes italic text-xl sm:text-2xl lg:text-3xl text-[#C43A6B] tracking-wide">
             {t.people?.familiesSubtitle || 'Two different worlds, one beautiful story'}
           </p>
         </motion.div>
@@ -152,7 +160,7 @@ export default function MeetCouple() {
                 <span className="font-josefin text-xs xl:text-sm tracking-[0.25em] text-[#6E8752] uppercase font-bold block mb-1">
                   THE BRIDE
                 </span>
-                <h3 className="font-bodoni text-2xl sm:text-3xl xl:text-4xl text-[#2B1B12] font-semibold tracking-wide">
+                <h3 className="font-lora text-2xl sm:text-3xl xl:text-4xl text-[#2B1B12] font-semibold tracking-wide">
                   Dhriti Kalpesh Shah
                 </h3>
                 <div className="w-10 h-0.5 bg-[#B8860B] mx-auto mt-1.5 rounded-full" />
@@ -177,22 +185,26 @@ export default function MeetCouple() {
               </div>
 
               {/* Shah Family Lineage Parchment Card: Tucked under board */}
-              <div className="w-[82%] xl:w-[85%] max-w-[390px] xl:max-w-[430px] -mt-38 xl:-mt-44 relative z-10">
-                <div className="relative w-full aspect-[928/699] flex items-center justify-center filter drop-shadow-[0_8px_20px_rgba(40,25,14,0.14)] select-none">
+              <div className="w-[84%] xl:w-[86%] max-w-[390px] xl:max-w-[430px] -mt-38 xl:-mt-44 relative z-10">
+                <div className="relative w-full aspect-[928/900] flex items-center justify-center filter drop-shadow-[0_8px_20px_rgba(40,25,14,0.14)] select-none">
                   <img
-                    src="/images/family-card-parchment.png"
+                    src="/images/family-card-parchment-tall.png"
                     alt="The Shah Family Lineage Card"
-                    className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none"
+                    className="absolute inset-0 w-full h-full object-fill pointer-events-none select-none"
                   />
-                  <div className="relative z-10 w-[78%] h-[82%] flex flex-col justify-center items-center text-center px-4 py-2">
+                  <div className="relative z-10 w-[84%] h-[82%] flex flex-col justify-center items-center text-center px-4 pt-5 xl:pt-6 pb-4">
                     {/* Grandparents */}
-                    <div className="mb-2.5">
-                      <span className="font-josefin text-[10px] xl:text-[11.5px] tracking-[0.22em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                    <div className="mb-1">
+                      <span className="font-josefin text-[9.5px] xl:text-[11px] tracking-[0.2em] text-[#7A5C28] uppercase font-bold block mb-0.5">
                         {shahFamily.grandparentsLabel}
                       </span>
-                      <div className="font-bodoni text-xs sm:text-sm xl:text-[15px] text-[#24170E] font-medium leading-snug space-y-0.5">
+                      <div className="font-lora text-xs xl:text-[13.5px] text-[#24170E] font-medium leading-tight space-y-0.5">
                         {shahFamily.grandparents.map((name, i) => (
-                          <p key={i}>{name}</p>
+                          <p key={`sgp1-${i}`}>{name}</p>
+                        ))}
+                        <p className="font-vibes italic text-sm text-[#C43A6B] leading-none py-0.5">&amp;</p>
+                        {shahFamily.grandparents2.map((name, i) => (
+                          <p key={`sgp2-${i}`}>{name}</p>
                         ))}
                       </div>
                     </div>
@@ -200,16 +212,16 @@ export default function MeetCouple() {
                     {/* Divider */}
                     <div className="flex items-center justify-center gap-2 my-1">
                       <div className="w-8 h-px bg-[#C8A25D]/60" />
-                      <span className="text-[9px] text-[#9E7B35]">❖</span>
+                      <span className="text-[7px] text-[#9E7B35]">❖</span>
                       <div className="w-8 h-px bg-[#C8A25D]/60" />
                     </div>
 
                     {/* Parents */}
-                    <div className="mb-2.5">
-                      <span className="font-josefin text-[10px] xl:text-[11.5px] tracking-[0.22em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                    <div className="mb-1">
+                      <span className="font-josefin text-[9.5px] xl:text-[11px] tracking-[0.2em] text-[#7A5C28] uppercase font-bold block mb-0.5">
                         {shahFamily.parentsLabel}
                       </span>
-                      <div className="font-bodoni text-xs sm:text-sm xl:text-[15px] text-[#24170E] font-medium leading-snug space-y-0.5">
+                      <div className="font-lora text-xs xl:text-[13.5px] text-[#24170E] font-medium leading-tight space-y-0.5">
                         {shahFamily.parents.map((name, i) => (
                           <p key={i}>{name}</p>
                         ))}
@@ -219,16 +231,16 @@ export default function MeetCouple() {
                     {/* Divider */}
                     <div className="flex items-center justify-center gap-2 my-1">
                       <div className="w-8 h-px bg-[#C8A25D]/60" />
-                      <span className="text-[9px] text-[#9E7B35]">❖</span>
+                      <span className="text-[7px] text-[#9E7B35]">❖</span>
                       <div className="w-8 h-px bg-[#C8A25D]/60" />
                     </div>
 
                     {/* Sibling */}
                     <div>
-                      <span className="font-josefin text-[10px] xl:text-[11.5px] tracking-[0.22em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                      <span className="font-josefin text-[9.5px] xl:text-[11px] tracking-[0.2em] text-[#7A5C28] uppercase font-bold block mb-0.5">
                         {shahFamily.siblingsLabel}
                       </span>
-                      <div className="font-bodoni text-xs sm:text-sm xl:text-[15px] text-[#24170E] font-medium leading-snug">
+                      <div className="font-lora text-xs xl:text-[13.5px] text-[#24170E] font-medium leading-tight">
                         {shahFamily.siblings.map((name, i) => (
                           <p key={i}>{name}</p>
                         ))}
@@ -268,7 +280,7 @@ export default function MeetCouple() {
                 <span className="font-josefin text-xs xl:text-sm tracking-[0.25em] text-[#6E8752] uppercase font-bold block mb-1">
                   THE GROOM
                 </span>
-                <h3 className="font-bodoni text-2xl sm:text-3xl xl:text-4xl text-[#2B1B12] font-semibold tracking-wide">
+                <h3 className="font-lora text-2xl sm:text-3xl xl:text-4xl text-[#2B1B12] font-semibold tracking-wide">
                   Soham Manish Mehta
                 </h3>
                 <div className="w-10 h-0.5 bg-[#B8860B] mx-auto mt-1.5 rounded-full" />
@@ -293,22 +305,26 @@ export default function MeetCouple() {
               </div>
 
               {/* Mehta Family Lineage Parchment Card: Tucked under board */}
-              <div className="w-[82%] xl:w-[85%] max-w-[390px] xl:max-w-[430px] -mt-38 xl:-mt-44 relative z-10">
-                <div className="relative w-full aspect-[928/699] flex items-center justify-center filter drop-shadow-[0_8px_20px_rgba(40,25,14,0.14)] select-none">
+              <div className="w-[84%] xl:w-[86%] max-w-[390px] xl:max-w-[430px] -mt-38 xl:-mt-44 relative z-10">
+                <div className="relative w-full aspect-[928/900] flex items-center justify-center filter drop-shadow-[0_8px_20px_rgba(40,25,14,0.14)] select-none">
                   <img
-                    src="/images/family-card-parchment.png"
+                    src="/images/family-card-parchment-tall.png"
                     alt="The Mehta Family Lineage Card"
-                    className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none"
+                    className="absolute inset-0 w-full h-full object-fill pointer-events-none select-none"
                   />
-                  <div className="relative z-10 w-[78%] h-[82%] flex flex-col justify-center items-center text-center px-4 py-2">
+                  <div className="relative z-10 w-[84%] h-[82%] flex flex-col justify-center items-center text-center px-4 pt-5 xl:pt-6 pb-4">
                     {/* Grandparents */}
-                    <div className="mb-2.5">
-                      <span className="font-josefin text-[10px] xl:text-[11.5px] tracking-[0.22em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                    <div className="mb-1">
+                      <span className="font-josefin text-[9.5px] xl:text-[11px] tracking-[0.2em] text-[#7A5C28] uppercase font-bold block mb-0.5">
                         {mehtaFamily.grandparentsLabel}
                       </span>
-                      <div className="font-bodoni text-xs sm:text-sm xl:text-[15px] text-[#24170E] font-medium leading-snug space-y-0.5">
+                      <div className="font-lora text-xs xl:text-[13.5px] text-[#24170E] font-medium leading-tight space-y-0.5">
                         {mehtaFamily.grandparents.map((name, i) => (
-                          <p key={i}>{name}</p>
+                          <p key={`mgp1-${i}`}>{name}</p>
+                        ))}
+                        <p className="font-vibes italic text-sm text-[#C43A6B] leading-none py-0.5">&amp;</p>
+                        {mehtaFamily.grandparents2.map((name, i) => (
+                          <p key={`mgp2-${i}`}>{name}</p>
                         ))}
                       </div>
                     </div>
@@ -316,16 +332,16 @@ export default function MeetCouple() {
                     {/* Divider */}
                     <div className="flex items-center justify-center gap-2 my-1">
                       <div className="w-8 h-px bg-[#C8A25D]/60" />
-                      <span className="text-[9px] text-[#9E7B35]">❖</span>
+                      <span className="text-[7px] text-[#9E7B35]">❖</span>
                       <div className="w-8 h-px bg-[#C8A25D]/60" />
                     </div>
 
                     {/* Parents */}
-                    <div className="mb-2.5">
-                      <span className="font-josefin text-[10px] xl:text-[11.5px] tracking-[0.22em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                    <div className="mb-1">
+                      <span className="font-josefin text-[9.5px] xl:text-[11px] tracking-[0.2em] text-[#7A5C28] uppercase font-bold block mb-0.5">
                         {mehtaFamily.parentsLabel}
                       </span>
-                      <div className="font-bodoni text-xs sm:text-sm xl:text-[15px] text-[#24170E] font-medium leading-snug space-y-0.5">
+                      <div className="font-lora text-xs xl:text-[13.5px] text-[#24170E] font-medium leading-tight space-y-0.5">
                         {mehtaFamily.parents.map((name, i) => (
                           <p key={i}>{name}</p>
                         ))}
@@ -335,16 +351,16 @@ export default function MeetCouple() {
                     {/* Divider */}
                     <div className="flex items-center justify-center gap-2 my-1">
                       <div className="w-8 h-px bg-[#C8A25D]/60" />
-                      <span className="text-[9px] text-[#9E7B35]">❖</span>
+                      <span className="text-[7px] text-[#9E7B35]">❖</span>
                       <div className="w-8 h-px bg-[#C8A25D]/60" />
                     </div>
 
                     {/* Sibling */}
                     <div>
-                      <span className="font-josefin text-[10px] xl:text-[11.5px] tracking-[0.22em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                      <span className="font-josefin text-[9.5px] xl:text-[11px] tracking-[0.2em] text-[#7A5C28] uppercase font-bold block mb-0.5">
                         {mehtaFamily.siblingsLabel}
                       </span>
-                      <div className="font-bodoni text-xs sm:text-sm xl:text-[15px] text-[#24170E] font-medium leading-snug">
+                      <div className="font-lora text-xs xl:text-[13.5px] text-[#24170E] font-medium leading-tight">
                         {mehtaFamily.siblings.map((name, i) => (
                           <p key={i}>{name}</p>
                         ))}
@@ -366,7 +382,7 @@ export default function MeetCouple() {
           {/* -------------------------------------------------------------- */}
           {/* BLOCK 1: BRIDE SIDE (Window Left, Tall Parchment Card Right)   */}
           {/* -------------------------------------------------------------- */}
-          <div className="grid grid-cols-[1.15fr_1fr] gap-2.5 sm:gap-4 items-start">
+          <div className="grid grid-cols-[1fr_1.1fr] sm:grid-cols-2 gap-2 sm:gap-4 items-start">
 
             {/* Left Column: Bride Window + Name on top + Shah Wooden Sign */}
             <motion.div
@@ -381,7 +397,7 @@ export default function MeetCouple() {
                 <span className="font-josefin text-[9px] sm:text-[10px] tracking-[0.2em] text-[#6E8752] uppercase font-bold block mb-0.5">
                   THE BRIDE
                 </span>
-                <h3 className="font-bodoni text-sm sm:text-base text-[#2B1B12] font-semibold tracking-wide">
+                <h3 className="font-lora text-sm sm:text-base text-[#2B1B12] font-semibold tracking-wide">
                   Dhriti Kalpesh Shah
                 </h3>
                 <div className="w-6 h-0.5 bg-[#B8860B] mx-auto mt-1 rounded-full" />
@@ -412,13 +428,13 @@ export default function MeetCouple() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="flex flex-col items-center pt-3 sm:pt-4"
+              className="flex flex-col items-center pt-2 sm:pt-4"
             >
               {/* Tall Parchment Card Container with Overhanging Corner Lantern */}
-              <div className="w-full relative aspect-[928/1100] flex items-center justify-center filter drop-shadow-[0_4px_14px_rgba(40,25,14,0.12)] select-none">
+              <div className="w-full relative aspect-[928/1180] flex items-center justify-center filter drop-shadow-[0_4px_14px_rgba(40,25,14,0.12)] select-none">
 
                 {/* Vintage Lantern hanging at top-left edge of the parchment card */}
-                <div className="absolute -top-10 sm:-top-12 left-0 sm:left-1 z-20 w-12 sm:w-[60px] filter drop-shadow-[0_4px_10px_rgba(40,25,14,0.24)] select-none pointer-events-none">
+                <div className="absolute -top-8 sm:-top-11 left-0 sm:left-1 z-20 w-11 sm:w-[58px] filter drop-shadow-[0_4px_10px_rgba(40,25,14,0.24)] select-none pointer-events-none">
                   <img
                     src="/images/vintage-lantern.png"
                     alt="Vintage Lantern"
@@ -430,57 +446,61 @@ export default function MeetCouple() {
                 <img
                   src="/images/family-card-parchment-tall.png"
                   alt="The Shah Family Lineage Card"
-                  className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none"
+                  className="absolute inset-0 w-full h-full object-fill pointer-events-none select-none"
                 />
 
-                {/* Family Lineage Text: Plentiful height, zero overflow */}
-                <div className="relative z-10 w-[84%] h-[88%] flex flex-col justify-center items-center text-center px-1 py-1">
+                {/* Family Lineage Text: Controlled height leaving comfortable top and bottom gaps */}
+                <div className="relative z-10 w-[86%] h-[82%] sm:h-[84%] flex flex-col justify-evenly items-center text-center px-1 py-1">
                   {/* Grandparents */}
-                  <div className="mb-1 sm:mb-1.5">
-                    <span className="font-josefin text-[7.5px] sm:text-[9px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                  <div>
+                    <span className="font-josefin text-[6.5px] sm:text-[8px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5 leading-none">
                       {shahFamily.grandparentsLabel}
                     </span>
-                    <div className="font-bodoni text-[10px] sm:text-[11.5px] text-[#24170E] font-medium leading-[1.2] space-y-0.5">
+                    <div className="font-lora text-[8px] sm:text-[9.5px] text-[#24170E] font-medium leading-[1.15] space-y-0.5">
                       {shahFamily.grandparents.map((name, i) => (
-                        <p key={i}>{name}</p>
+                        <p key={`m-sgp1-${i}`}>{name}</p>
+                      ))}
+                      <p className="font-vibes italic text-[11px] sm:text-xs text-[#C43A6B] leading-none py-0.5">&amp;</p>
+                      {shahFamily.grandparents2.map((name, i) => (
+                        <p key={`m-sgp2-${i}`}>{name}</p>
                       ))}
                     </div>
                   </div>
 
                   {/* Divider */}
-                  <div className="flex items-center justify-center gap-1 my-1">
-                    <div className="w-5 h-px bg-[#C8A25D]/50" />
-                    <span className="text-[6px] text-[#9E7B35]">❖</span>
-                    <div className="w-5 h-px bg-[#C8A25D]/50" />
+                  <div className="flex items-center justify-center gap-1 my-0.5">
+                    <div className="w-4 h-px bg-[#C8A25D]/50" />
+                    <span className="text-[5px] text-[#9E7B35]">❖</span>
+                    <div className="w-4 h-px bg-[#C8A25D]/50" />
                   </div>
 
                   {/* Parents */}
-                  <div className="mb-1 sm:mb-1.5">
-                    <span className="font-josefin text-[7.5px] sm:text-[9px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                  <div>
+                    <span className="font-josefin text-[6.5px] sm:text-[8px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5 leading-none">
                       {shahFamily.parentsLabel}
                     </span>
-                    <div className="font-bodoni text-[10px] sm:text-[11.5px] text-[#24170E] font-medium leading-[1.2] space-y-0.5">
+                    <div className="font-lora text-[8px] sm:text-[9.5px] text-[#24170E] font-medium leading-[1.15] space-y-0.5">
                       {shahFamily.parents.map((name, i) => (
-                        <p key={i}>{name}</p>
+                        <p key={`m-sp-${i}`}>{name}</p>
                       ))}
                     </div>
                   </div>
 
                   {/* Divider */}
-                  <div className="flex items-center justify-center gap-1 my-1">
-                    <div className="w-5 h-px bg-[#C8A25D]/50" />
-                    <span className="text-[6px] text-[#9E7B35]">❖</span>
-                    <div className="w-5 h-px bg-[#C8A25D]/50" />
+                  <div className="flex items-center justify-center gap-1 my-0.5">
+                    <div className="w-4 h-px bg-[#C8A25D]/50" />
+                    <span className="text-[5px] text-[#9E7B35]">❖</span>
+                    <div className="w-4 h-px bg-[#C8A25D]/50" />
                   </div>
 
                   {/* Sibling */}
                   <div>
-                    <span className="font-josefin text-[7.5px] sm:text-[9px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                    <span className="font-josefin text-[6.5px] sm:text-[8px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5 leading-none">
                       {shahFamily.siblingsLabel}
                     </span>
-                    <div className="font-bodoni text-[10px] sm:text-[11.5px] text-[#24170E] font-medium leading-[1.2]">
+                    <div className="font-lora text-[8px] sm:text-[9.5px] text-[#24170E] font-medium leading-[1.15]">
                       {shahFamily.siblings.map((name, i) => (
-                        <p key={i}>{name}</p>
+                        <p key={`m-ss-${i}`}>{name}</p>
                       ))}
                     </div>
                   </div>
@@ -504,7 +524,7 @@ export default function MeetCouple() {
           {/* -------------------------------------------------------------- */}
           {/* BLOCK 2: GROOM SIDE (Tall Parchment Left, Window Right)        */}
           {/* -------------------------------------------------------------- */}
-          <div className="grid grid-cols-[1fr_1.15fr] gap-2.5 sm:gap-4 items-start">
+          <div className="grid grid-cols-[1.1fr_1fr] sm:grid-cols-2 gap-2.5 sm:gap-4 items-start">
 
             {/* Left Column: Vintage Lantern + Tall Mehta Family Parchment Card */}
             <motion.div
@@ -512,13 +532,13 @@ export default function MeetCouple() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6 }}
-              className="flex flex-col items-center pt-3 sm:pt-4"
+              className="flex flex-col items-center pt-2 sm:pt-4"
             >
               {/* Tall Parchment Card Container with Overhanging Corner Lantern */}
-              <div className="w-full relative aspect-[928/1100] flex items-center justify-center filter drop-shadow-[0_4px_14px_rgba(40,25,14,0.12)] select-none">
+              <div className="w-full relative aspect-[928/1180] flex items-center justify-center filter drop-shadow-[0_4px_14px_rgba(40,25,14,0.12)] select-none">
 
                 {/* Vintage Lantern hanging at top-left edge of the parchment card */}
-                <div className="absolute -top-10 sm:-top-12 left-0 sm:left-1 z-20 w-12 sm:w-[60px] filter drop-shadow-[0_4px_10px_rgba(40,25,14,0.24)] select-none pointer-events-none">
+                <div className="absolute -top-8 sm:-top-11 left-0 sm:left-1 z-20 w-11 sm:w-[58px] filter drop-shadow-[0_4px_10px_rgba(40,25,14,0.24)] select-none pointer-events-none">
                   <img
                     src="/images/vintage-lantern.png"
                     alt="Vintage Lantern"
@@ -530,57 +550,61 @@ export default function MeetCouple() {
                 <img
                   src="/images/family-card-parchment-tall.png"
                   alt="The Mehta Family Lineage Card"
-                  className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none"
+                  className="absolute inset-0 w-full h-full object-fill pointer-events-none select-none"
                 />
 
-                {/* Family Lineage Text: Plentiful height, zero overflow */}
-                <div className="relative z-10 w-[84%] h-[88%] flex flex-col justify-center items-center text-center px-1 py-1">
+                {/* Family Lineage Text: Controlled height leaving comfortable top and bottom gaps */}
+                <div className="relative z-10 w-[86%] h-[82%] sm:h-[84%] flex flex-col justify-evenly items-center text-center px-1 py-1">
                   {/* Grandparents */}
-                  <div className="mb-1 sm:mb-1.5">
-                    <span className="font-josefin text-[7.5px] sm:text-[9px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                  <div>
+                    <span className="font-josefin text-[6.5px] sm:text-[8px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5 leading-none">
                       {mehtaFamily.grandparentsLabel}
                     </span>
-                    <div className="font-bodoni text-[10px] sm:text-[11.5px] text-[#24170E] font-medium leading-[1.2] space-y-0.5">
+                    <div className="font-lora text-[8px] sm:text-[9.5px] text-[#24170E] font-medium leading-[1.15] space-y-0.5">
                       {mehtaFamily.grandparents.map((name, i) => (
-                        <p key={i}>{name}</p>
+                        <p key={`m-mgp1-${i}`}>{name}</p>
+                      ))}
+                      <p className="font-vibes italic text-[11px] sm:text-xs text-[#C43A6B] leading-none py-0.5">&amp;</p>
+                      {mehtaFamily.grandparents2.map((name, i) => (
+                        <p key={`m-mgp2-${i}`}>{name}</p>
                       ))}
                     </div>
                   </div>
 
                   {/* Divider */}
-                  <div className="flex items-center justify-center gap-1 my-1">
-                    <div className="w-5 h-px bg-[#C8A25D]/50" />
-                    <span className="text-[6px] text-[#9E7B35]">❖</span>
-                    <div className="w-5 h-px bg-[#C8A25D]/50" />
+                  <div className="flex items-center justify-center gap-1 my-0.5">
+                    <div className="w-4 h-px bg-[#C8A25D]/50" />
+                    <span className="text-[5px] text-[#9E7B35]">❖</span>
+                    <div className="w-4 h-px bg-[#C8A25D]/50" />
                   </div>
 
                   {/* Parents */}
-                  <div className="mb-1 sm:mb-1.5">
-                    <span className="font-josefin text-[7.5px] sm:text-[9px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                  <div>
+                    <span className="font-josefin text-[6.5px] sm:text-[8px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5 leading-none">
                       {mehtaFamily.parentsLabel}
                     </span>
-                    <div className="font-bodoni text-[10px] sm:text-[11.5px] text-[#24170E] font-medium leading-[1.2] space-y-0.5">
+                    <div className="font-lora text-[8px] sm:text-[9.5px] text-[#24170E] font-medium leading-[1.15] space-y-0.5">
                       {mehtaFamily.parents.map((name, i) => (
-                        <p key={i}>{name}</p>
+                        <p key={`m-mp-${i}`}>{name}</p>
                       ))}
                     </div>
                   </div>
 
                   {/* Divider */}
-                  <div className="flex items-center justify-center gap-1 my-1">
-                    <div className="w-5 h-px bg-[#C8A25D]/50" />
-                    <span className="text-[6px] text-[#9E7B35]">❖</span>
-                    <div className="w-5 h-px bg-[#C8A25D]/50" />
+                  <div className="flex items-center justify-center gap-1 my-0.5">
+                    <div className="w-4 h-px bg-[#C8A25D]/50" />
+                    <span className="text-[5px] text-[#9E7B35]">❖</span>
+                    <div className="w-4 h-px bg-[#C8A25D]/50" />
                   </div>
 
                   {/* Sibling */}
                   <div>
-                    <span className="font-josefin text-[7.5px] sm:text-[9px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5">
+                    <span className="font-josefin text-[6.5px] sm:text-[8px] tracking-[0.16em] text-[#7A5C28] uppercase font-bold block mb-0.5 leading-none">
                       {mehtaFamily.siblingsLabel}
                     </span>
-                    <div className="font-bodoni text-[10px] sm:text-[11.5px] text-[#24170E] font-medium leading-[1.2]">
+                    <div className="font-lora text-[8px] sm:text-[9.5px] text-[#24170E] font-medium leading-[1.15]">
                       {mehtaFamily.siblings.map((name, i) => (
-                        <p key={i}>{name}</p>
+                        <p key={`m-ms-${i}`}>{name}</p>
                       ))}
                     </div>
                   </div>
@@ -601,7 +625,7 @@ export default function MeetCouple() {
                 <span className="font-josefin text-[9px] sm:text-[10px] tracking-[0.2em] text-[#6E8752] uppercase font-bold block mb-0.5">
                   THE GROOM
                 </span>
-                <h3 className="font-bodoni text-sm sm:text-base text-[#2B1B12] font-semibold tracking-wide">
+                <h3 className="font-lora text-sm sm:text-base text-[#2B1B12] font-semibold tracking-wide">
                   Soham Manish Mehta
                 </h3>
                 <div className="w-6 h-0.5 bg-[#B8860B] mx-auto mt-1 rounded-full" />
@@ -630,37 +654,32 @@ export default function MeetCouple() {
 
         </div>
 
-        {/* ================================================================ */}
-        {/* BOTTOM ACCENT: 2X REDUCED ARCHITECTURAL SKETCH & CROSSING QUOTE  */}
-        {/* ================================================================ */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-12 sm:mt-16 text-center flex flex-col items-center"
-        >
-          {/* Romantic Script */}
-          <p className="font-beau italic text-xl sm:text-2xl lg:text-3xl text-[#C43A6B] tracking-wide mb-1 sm:mb-2">
-            And paths begin to merge.....
-          </p>
-
-          {/* Mumbai meets Manhattan Silhouette: Balanced architectural sketch vignette */}
-          <div className="w-full max-w-[340px] sm:max-w-[440px] lg:max-w-[560px] xl:max-w-[620px] mx-auto my-2 select-none pointer-events-none px-2">
-            <img
-              src="/images/mumbai-manhattan-skyline.png"
-              alt="Mumbai meets Manhattan - Taj Mahal Palace, Gateway of India, CST to Brooklyn Bridge and Manhattan Skyline"
-              className="w-full h-auto object-contain mx-auto filter drop-shadow-[0_2px_6px_rgba(40,25,14,0.08)]"
-            />
-          </div>
-
-          {/* Journey Kicker */}
-          <span className="font-josefin text-[10px] sm:text-xs tracking-[0.25em] text-[#6E8752] uppercase font-bold block mt-1 sm:mt-2">
-            MUMBAI MEETS MANHATTAN • FEBRUARY 2027
-          </span>
-        </motion.div>
-
       </div>
+
+      {/* ================================================================ */}
+      {/* SECTION ENDER: ROMANTIC QUOTE & BORDER SKYLINE SILHOUETTE         */}
+      {/* ================================================================ */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        className="mt-14 sm:mt-18 text-center flex flex-col items-center w-full relative z-10"
+      >
+        {/* Romantic Script */}
+        <p className="font-vibes italic text-xl sm:text-2xl lg:text-3xl text-[#C43A6B] tracking-wide mb-2 sm:mb-3 px-4">
+          And paths begin to merge.....
+        </p>
+
+        {/* Mumbai meets Manhattan Skyline resting right at the bottom section border */}
+        <div className="w-full max-w-[340px] sm:max-w-[440px] lg:max-w-[440px] xl:max-w-[480px] mx-auto select-none pointer-events-none px-4 -mb-1">
+          <img
+            src="/images/mumbai-manhattan-skyline.png"
+            alt="Mumbai meets Manhattan - Taj Mahal Palace, Gateway of India, CST to Brooklyn Bridge and Manhattan Skyline"
+            className="w-full h-auto object-contain object-bottom mx-auto filter drop-shadow-[0_-2px_6px_rgba(40,25,14,0.06)]"
+          />
+        </div>
+      </motion.div>
     </section>
   );
 }

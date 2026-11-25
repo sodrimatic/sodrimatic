@@ -83,7 +83,7 @@ export default function ChatReveal() {
               <span className="font-josefin text-xs tracking-[0.25em] text-[#FDE08A] uppercase font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)]">
                 {t.chat?.kicker || 'Leaked from the DmS'}
               </span>
-              <h2 className="font-bodoni text-2xl sm:text-3xl lg:text-4xl text-[#FFFFFF] mt-1 font-medium tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.18)]">
+              <h2 className="font-lora text-2xl sm:text-3xl lg:text-4xl text-[#FFFFFF] mt-1 font-medium tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.18)]">
                 {t.chat?.title || 'The exact minute forever started'}
               </h2>
               <div className="w-12 h-0.5 bg-[#D4B458] mt-2 rounded-full mx-auto lg:mx-0 shadow-xs" />
@@ -239,13 +239,13 @@ export default function ChatReveal() {
               {t.note?.kicker || 'Our big day means nothing without you.'}
             </span>
 
-            <h2 className="font-bodoni text-2xl sm:text-3xl lg:text-4xl text-[#3E4F2A] mt-2 font-medium tracking-wide">
+            <h2 className="font-lora text-2xl sm:text-3xl lg:text-4xl text-[#3E4F2A] mt-2 font-medium tracking-wide">
               {t.note?.title || 'A Little Note From Us'}
             </h2>
 
             <div className="w-12 h-0.5 bg-[#D4B458] my-3 rounded-full mx-auto lg:mx-0 shadow-xs" />
 
-            <p className="font-beau italic text-2xl sm:text-3xl text-[#C43A6B] tracking-wide mb-5">
+            <p className="font-vibes italic text-2xl sm:text-3xl text-[#C43A6B] tracking-wide mb-5">
               {t.note?.subtitle || 'Well this is happening!'}
             </p>
 
@@ -259,10 +259,10 @@ export default function ChatReveal() {
             </div>
 
             <div className="mt-8 pt-5 border-t border-[#D4B458]/40 w-full max-w-xs mx-auto lg:mx-0 flex flex-col items-center lg:items-start">
-              <span className="font-beau italic text-2xl text-[#C43A6B]">
+              <span className="font-vibes italic text-2xl text-[#C43A6B]">
                 {t.note?.closing || 'With all our love,'}
               </span>
-              <span className="font-bodoni font-bold text-lg sm:text-xl text-[#3E4F2A] tracking-wider uppercase mt-1">
+              <span className="font-lora font-bold text-lg sm:text-xl text-[#3E4F2A] tracking-wider uppercase mt-1">
                 {t.note?.couple || 'Dhriti & Soham'}
               </span>
             </div>

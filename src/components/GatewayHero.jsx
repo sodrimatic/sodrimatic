@@ -94,7 +94,7 @@ export default function GatewayHero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55, ease: 'easeOut' }}
-          className="font-bodoni font-medium text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#3E4F2A] tracking-wider uppercase leading-tight drop-shadow-[0_2px_8px_rgba(255,255,255,0.95)] pointer-events-auto"
+          className="font-lora font-medium text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#3E4F2A] tracking-wider uppercase leading-tight drop-shadow-[0_2px_8px_rgba(255,255,255,0.95)] pointer-events-auto"
         >
           {t.hero?.coupleNames || 'Dhriti & Soham'}
         </motion.h1>
@@ -104,7 +104,7 @@ export default function GatewayHero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
-          className="font-beau italic text-xl sm:text-2xl md:text-3xl text-[#C43A6B] mt-0.5 sm:mt-1 tracking-wide drop-shadow-[0_1px_6px_rgba(255,255,255,0.95)] pointer-events-auto"
+          className="font-vibes italic text-xl sm:text-2xl md:text-3xl text-[#C43A6B] mt-0.5 sm:mt-1 tracking-wide drop-shadow-[0_1px_6px_rgba(255,255,255,0.95)] pointer-events-auto"
         >
           {t.hero?.subtitle || 'our forever begins'}
         </motion.p>

@@ -18,6 +18,7 @@ import ScratchCard from './components/ScratchCard.jsx';
 import MeetCouple from './components/MeetCouple.jsx';
 import RSVPSection from './components/RSVPSection.jsx';
 import CelebrationHub from './components/CelebrationHub.jsx';
+import Footer from './components/Footer.jsx';
 import { prefetchCelebrationData } from './services/api.js';
 
 function WeddingAppContent() {
@@ -78,6 +79,9 @@ function WeddingAppContent() {
         {/* Section 6: Minimalist Mobile-First RSVP Form */}
         <RSVPSection />
       </main>
+
+      {/* Footer */}
+      <Footer />
 
     </div>
   );

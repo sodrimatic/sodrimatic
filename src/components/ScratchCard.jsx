@@ -95,11 +95,11 @@ export default function ScratchCard() {
           <span className="font-josefin text-xs tracking-[0.25em] text-[#7A5229] uppercase font-bold block mb-1">
             {t.scratch?.kicker || 'SAVE OUR DATE & VENUE'}
           </span>
-          <h2 className="font-bodoni text-3xl sm:text-4xl text-[#2B1B12] font-semibold tracking-wide">
+          <h2 className="font-lora text-3xl sm:text-4xl text-[#2B1B12] font-semibold tracking-wide">
             {t.scratch?.title || 'Wedding Details'}
           </h2>
           <div className="w-12 h-0.5 bg-[#B8860B] my-2 rounded-full mx-auto" />
-          <p className="font-beau italic text-2xl text-[#C43A6B] tracking-wide">
+          <p className="font-vibes italic text-2xl text-[#C43A6B] tracking-wide">
             {t.scratch?.subtitle || 'our forever begins'}
           </p>
         </div>
@@ -129,11 +129,11 @@ export default function ScratchCard() {
               <span className="font-josefin text-xs tracking-[0.25em] text-[#7A5229] uppercase font-bold block mb-1">
                 {t.scratch?.kicker || 'SAVE OUR DATE & VENUE'}
               </span>
-              <h2 className="font-bodoni text-3xl sm:text-4xl xl:text-5xl text-[#2B1B12] font-semibold tracking-wide leading-tight">
+              <h2 className="font-lora text-3xl sm:text-4xl xl:text-5xl text-[#2B1B12] font-semibold tracking-wide leading-tight">
                 {t.scratch?.title || 'Wedding Details'}
               </h2>
               <div className="w-14 h-0.5 bg-[#B8860B] my-2.5 rounded-full" />
-              <p className="font-beau italic text-2xl sm:text-3xl text-[#C43A6B] tracking-wide">
+              <p className="font-vibes italic text-2xl sm:text-3xl text-[#C43A6B] tracking-wide">
                 {t.scratch?.subtitle || 'our forever begins'}
               </p>
             </div>
@@ -144,8 +144,8 @@ export default function ScratchCard() {
                 <span className="font-josefin text-xs tracking-[0.22em] text-[#8C6D37] uppercase font-bold block mb-1">
                   {t.scratch?.venueLabel || 'THE VENUE'}
                 </span>
-                <h3 className="font-bodoni font-bold text-3xl sm:text-4xl text-[#2C1B10] tracking-wide leading-tight">
-                  {t.scratch?.venueName || 'Banquet 9'}
+                <h3 className="font-lora font-bold text-3xl sm:text-4xl text-[#2C1B10] tracking-wide leading-tight">
+                  {t.scratch?.venueName || 'Banquet 9 & 10'}
                 </h3>
                 <p className="font-josefin text-sm sm:text-base text-[#4E3827] font-medium mt-1 leading-relaxed max-w-md">
                   {t.scratch?.venueAddress || 'Evershine Mall, Chincholi Bunder, New Link Road, Malad West, Mumbai'}
@@ -167,7 +167,7 @@ export default function ScratchCard() {
             {/* Direct Interactive Google Map - Clean & Unboxed */}
             <div className="relative w-full h-48 sm:h-52 xl:h-56 rounded-2xl overflow-hidden border border-[#D4B458]/60 shadow-[0_8px_20px_rgba(40,25,14,0.1)] group">
               <iframe
-                title="Banquet 9 Evershine Mall Malad West Location Map"
+                title="Banquet 9 & 10 Evershine Mall Malad West Location Map"
                 src="https://maps.google.com/maps?q=Banquet+9+Evershine+Mall+Chincholi+Bunder+New+Link+Road+Malad+West+Mumbai+400064&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
@@ -250,11 +250,11 @@ export default function ScratchCard() {
                     
                     {/* 1. TOP PART: THE ILLUMINATED WEDDING DATE */}
                     <div className="flex flex-col items-center justify-center my-auto pt-1 sm:pt-2">
-                      <span className="font-beau italic text-xl sm:text-2xl md:text-3xl text-[#FDE08A] tracking-wide block leading-none drop-shadow-xs">
+                      <span className="font-vibes italic text-xl sm:text-2xl md:text-3xl text-[#FDE08A] tracking-wide block leading-none drop-shadow-xs">
                         {t.scratch?.revealedPrefix || 'our wedding date is:'}
                       </span>
 
-                      <h3 className="font-bodoni font-bold text-2xl sm:text-3xl md:text-4xl xl:text-[44px] text-[#FFF6E5] tracking-wide my-1 sm:my-1.5 leading-none drop-shadow-[0_2px_12px_rgba(253,224,138,0.5)]">
+                      <h3 className="font-lora font-bold text-2xl sm:text-3xl md:text-4xl xl:text-[44px] text-[#FFF6E5] tracking-wide my-1 sm:my-1.5 leading-none drop-shadow-[0_2px_12px_rgba(253,224,138,0.5)]">
                         {t.scratch?.revealedDate || '12 February 2027'}
                       </h3>
 
@@ -269,8 +269,8 @@ export default function ScratchCard() {
                       <div className="flex items-center justify-between mb-1.5 px-1">
                         <div className="flex items-center gap-1.5">
                           <CalendarIcon className="w-3 h-3 text-[#FDE08A]" />
-                          <span className="font-bodoni font-medium text-[11px] sm:text-xs text-[#FFF6E5] tracking-wide">
-                            {t.scratch?.countdownTitle || 'The Countdown Begins'}
+                          <span className="font-lora font-medium text-[11px] sm:text-xs text-[#FFF6E5] tracking-wide">
+                            {t.scratch?.countdownTitle || 'The Countdown has started'}
                           </span>
                         </div>
                         <span className="font-josefin text-[9px] sm:text-[10px] tracking-wider uppercase text-[#E8DCC2] font-semibold">
@@ -289,7 +289,7 @@ export default function ScratchCard() {
                             <div className="absolute inset-0.5 border border-[#9C794A]/20 rounded-md sm:rounded-lg pointer-events-none" />
                             
                             {/* Dark walnut vintage numeral */}
-                            <span className="relative z-10 font-bodoni font-bold text-lg sm:text-2xl md:text-3xl text-[#2B180D] tabular-nums leading-none tracking-tight drop-shadow-2xs">
+                            <span className="relative z-10 font-lora font-bold text-lg sm:text-2xl md:text-3xl text-[#2B180D] tabular-nums leading-none tracking-tight drop-shadow-2xs">
                               {item.value}
                             </span>
                             

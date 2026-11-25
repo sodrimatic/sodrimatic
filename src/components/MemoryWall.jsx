@@ -18,8 +18,55 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { uploadMemoryPhoto, fetchMemoryPhotos, getInitialMemoryPhotos, onPhotosUpdated } from '../services/api.js';
-import { Camera, Upload, X, Shuffle, Sparkles, Heart, Check, ZoomIn } from 'lucide-react';
+import { Camera, Upload, X, Shuffle, Sparkles, Heart, Check, ZoomIn, Plus } from 'lucide-react';
 import GameTitleBoard from './GameTitleBoard.jsx';
+
+// Client-side image compression: prevents network stalls & Google Apps Script payload overflow
+function compressImage(file, maxDimension = 1920, quality = 0.85) {
+  return new Promise((resolve) => {
+    if (!file || !file.type || !file.type.startsWith('image/')) {
+      resolve(null);
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) {
+            height = Math.round((height * maxDimension) / width);
+            width = maxDimension;
+          } else {
+            width = Math.round((width * maxDimension) / height);
+            height = maxDimension;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve({
+          base64: dataUrl,
+          mimeType: 'image/jpeg',
+          name: file.name,
+        });
+      };
+      img.onerror = () => {
+        resolve({
+          base64: e.target.result,
+          mimeType: file.type || 'image/jpeg',
+          name: file.name,
+        });
+      };
+      img.src = e.target.result;
+    };
+    reader.onerror = () => resolve(null);
+    reader.readAsDataURL(file);
+  });
+}
 
 const TOTAL_DISPLAY_COUNT = 10;
 const MOBILE_DISPLAY_COUNT = 4;
@@ -297,8 +344,11 @@ export default function MemoryWall({ embedded = false, isActive = true }) {
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedFileBase64, setSelectedFileBase64] = useState('');
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState({ current: 0, total: 0 });
+  const [uploadedCount, setUploadedCount] = useState(0);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [lightboxPhoto, setLightboxPhoto] = useState(null);
 
@@ -396,35 +446,59 @@ export default function MemoryWall({ embedded = false, isActive = true }) {
     setDisplayedPhotos((prev) => getDisplayPhotos(approvedPhotos, displayCount, prev));
   }, [approvedPhotos, displayCount]);
 
-  // Handle local image file selection
-  const handleFileChange = (e) => {
-    const file = e.target.files && e.target.files[0];
-    if (!file) return;
+  // Handle local image file selection (supports single and multiple files)
+  const handleFileChange = async (e) => {
+    const fileList = e.target.files ? Array.from(e.target.files) : [];
+    if (fileList.length === 0) return;
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setSelectedFileBase64(reader.result);
-    };
-    reader.readAsDataURL(file);
+    setIsProcessing(true);
+    try {
+      const processed = await Promise.all(fileList.map((f) => compressImage(f)));
+      const validFiles = processed
+        .filter(Boolean)
+        .map((item, idx) => ({
+          id: `${Date.now()}-${idx}-${Math.random().toString(36).slice(2, 7)}`,
+          ...item,
+        }));
+      setSelectedFiles((prev) => [...prev, ...validFiles]);
+    } catch (err) {
+      console.error('Photo processing error:', err);
+    } finally {
+      setIsProcessing(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
   };
 
-  // Submit to Google Drive (UploadedPhotos folder)
+  const handleRemoveFile = (idToRemove) => {
+    setSelectedFiles((prev) => prev.filter((f) => f.id !== idToRemove));
+  };
+
+  // Submit multiple photos to Google Drive (UploadedPhotos folder)
   const handleUploadSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedFileBase64) return;
+    if (selectedFiles.length === 0) return;
 
     setIsUploading(true);
-    try {
-      await uploadMemoryPhoto({
-        base64: selectedFileBase64,
-        caption: 'Guest Memory',
-        mimeType: 'image/jpeg',
-      });
+    const total = selectedFiles.length;
+    setUploadProgress({ current: 0, total });
 
+    try {
+      for (let i = 0; i < total; i++) {
+        const photo = selectedFiles[i];
+        setUploadProgress({ current: i + 1, total });
+        await uploadMemoryPhoto({
+          base64: photo.base64,
+          caption: 'Guest Memory',
+          mimeType: photo.mimeType || 'image/jpeg',
+        });
+      }
+
+      setUploadedCount(total);
       setUploadSuccess(true);
       setTimeout(() => {
         setUploadSuccess(false);
-        setSelectedFileBase64('');
+        setSelectedFiles([]);
+        setUploadedCount(0);
         setIsModalOpen(false);
       }, 3000);
     } catch (err) {
@@ -463,7 +537,7 @@ export default function MemoryWall({ embedded = false, isActive = true }) {
           {canShuffle && (
             <button
               onClick={handleShuffle}
-              className="min-h-[46px] px-5 py-2 rounded-full border border-[#D7E4B8] bg-white hover:bg-[#FAFDF3] text-xs text-[#7DA457] flex items-center gap-2 transition-all active:scale-95 cursor-pointer shadow-2xs group"
+              className="min-h-[46px] px-5 py-2 rounded-full border border-[#D4AF37]/60 bg-white hover:bg-[#FFFDF8] text-xs text-[#8A6318] hover:text-[#5C3F0A] flex items-center gap-2 transition-all active:scale-95 cursor-pointer shadow-2xs group"
               title="Shuffle memories"
             >
               <Shuffle className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-500" />
@@ -575,7 +649,7 @@ export default function MemoryWall({ embedded = false, isActive = true }) {
                     <X className="w-5 h-5" />
                   </button>
 
-                  <h3 className="font-bodoni text-2xl text-[#3E4F2A] mb-1">
+                  <h3 className="font-lora text-2xl text-[#3E4F2A] mb-1">
                     {t.memoryWall.uploadTitle}
                   </h3>
                   <p className="font-josefin text-xs text-[#7DA457] mb-4">
@@ -587,7 +661,7 @@ export default function MemoryWall({ embedded = false, isActive = true }) {
                       <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3">
                         <Check className="w-7 h-7" />
                       </div>
-                      <h4 className="font-bodoni font-bold text-xl text-[#3E4F2A]">
+                      <h4 className="font-lora font-bold text-xl text-[#3E4F2A]">
                         Photo Uploaded!
                       </h4>
                       <p className="text-xs text-[#6E8E3E] mt-2 max-w-xs leading-relaxed">
@@ -596,46 +670,99 @@ export default function MemoryWall({ embedded = false, isActive = true }) {
                     </div>
                   ) : (
                     <form onSubmit={handleUploadSubmit} className="flex flex-col gap-4 font-josefin">
-                      {/* File Drop / Tap Area */}
-                      <div
-                        onClick={() => fileInputRef.current?.click()}
-                        className="w-full aspect-[16/10] rounded-2xl border-2 border-dashed border-[#D7E4B8] hover:border-[#D86C9A] bg-white flex flex-col items-center justify-center p-4 text-center cursor-pointer transition-colors overflow-hidden"
-                      >
-                        {selectedFileBase64 ? (
-                          <img
-                            src={selectedFileBase64}
-                            alt="Selected preview"
-                            className="w-full h-full object-contain rounded-xl"
-                          />
-                        ) : (
-                          <>
-                            <div className="w-12 h-12 rounded-full bg-[#F3A1C3]/30 flex items-center justify-center text-[#C43A6B] mb-2">
-                              <Upload className="w-6 h-6" />
+                      {/* Hidden File Input supporting multiple files */}
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={handleFileChange}
+                        className="hidden"
+                      />
+
+                      {selectedFiles.length === 0 ? (
+                        /* Empty State: Tap/Drop Area */
+                        <div
+                          onClick={() => fileInputRef.current?.click()}
+                          className="w-full aspect-[16/10] rounded-2xl border-2 border-dashed border-[#D7E4B8] hover:border-[#D86C9A] bg-white flex flex-col items-center justify-center p-4 text-center cursor-pointer transition-colors overflow-hidden"
+                        >
+                          <div className="w-12 h-12 rounded-full bg-[#F3A1C3]/30 flex items-center justify-center text-[#C43A6B] mb-2">
+                            <Upload className="w-6 h-6" />
+                          </div>
+                          <span className="text-xs sm:text-sm font-semibold text-[#3E4F2A]">
+                            Click or tap to choose photos
+                          </span>
+                          <span className="text-[11px] text-[#9FB77A] mt-1">
+                            Select one or multiple photos (JPG, PNG, WebP)
+                          </span>
+                          {isProcessing && (
+                            <span className="text-[11px] text-[#C43A6B] mt-2 animate-pulse">
+                              Processing photos...
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        /* Multi-photo selected preview list */
+                        <div className="flex flex-col gap-2">
+                          <div className="flex items-center justify-between text-xs font-semibold text-[#3E4F2A] px-1">
+                            <span>
+                              {selectedFiles.length} {selectedFiles.length === 1 ? 'Photo' : 'Photos'} Selected
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => fileInputRef.current?.click()}
+                              className="text-[#C43A6B] hover:text-[#A92A56] flex items-center gap-1 cursor-pointer text-xs"
+                            >
+                              <Plus className="w-3.5 h-3.5" />
+                              <span>Add more</span>
+                            </button>
+                          </div>
+
+                          <div className="grid grid-cols-3 gap-2 max-h-[220px] overflow-y-auto p-1.5 bg-white/70 rounded-2xl border border-[#D7E4B8]">
+                            {selectedFiles.map((file, idx) => (
+                              <div
+                                key={file.id}
+                                className="relative aspect-square rounded-xl overflow-hidden border border-[#C8A870]/40 group shadow-2xs"
+                              >
+                                <img
+                                  src={file.base64}
+                                  alt={`Selected photo ${idx + 1}`}
+                                  className="w-full h-full object-cover"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => handleRemoveFile(file.id)}
+                                  className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/60 hover:bg-rose-600 text-white flex items-center justify-center transition-all cursor-pointer shadow-xs"
+                                  title="Remove this photo"
+                                  aria-label="Remove photo"
+                                >
+                                  <X className="w-3 h-3" />
+                                </button>
+                                <span className="absolute bottom-1 left-1 bg-black/50 text-white text-[9px] px-1 rounded-xs">
+                                  #{idx + 1}
+                                </span>
+                              </div>
+                            ))}
+
+                            {/* Add More Tile */}
+                            <div
+                              onClick={() => fileInputRef.current?.click()}
+                              className="aspect-square rounded-xl border-2 border-dashed border-[#D7E4B8] hover:border-[#D86C9A] bg-white flex flex-col items-center justify-center cursor-pointer text-[#6E8E3E] hover:text-[#C43A6B] transition-colors p-2 text-center"
+                            >
+                              <Plus className="w-5 h-5 mb-0.5" />
+                              <span className="text-[10px] font-semibold leading-tight">Add More</span>
                             </div>
-                            <span className="text-xs sm:text-sm font-semibold text-[#3E4F2A]">
-                              {t.memoryWall.dragPrompt}
-                            </span>
-                            <span className="text-[11px] text-[#9FB77A] mt-1">
-                              JPG, PNG, or WebP up to 10MB
-                            </span>
-                          </>
-                        )}
-                        <input
-                          ref={fileInputRef}
-                          type="file"
-                          accept="image/*"
-                          onChange={handleFileChange}
-                          className="hidden"
-                        />
-                      </div>
+                          </div>
+                        </div>
+                      )}
 
                       {/* Actions */}
-                      <div className="flex items-center justify-end gap-3 mt-2">
+                      <div className="flex items-center justify-end gap-3 mt-1">
                         <button
                           type="button"
                           onClick={() => {
                             setIsModalOpen(false);
-                            setSelectedFileBase64('');
+                            setSelectedFiles([]);
                           }}
                           className="min-h-[44px] px-4 py-2 rounded-xl text-xs font-semibold text-[#3E4F2A] hover:bg-[#E6DCC7]/50 cursor-pointer"
                         >
@@ -643,15 +770,21 @@ export default function MemoryWall({ embedded = false, isActive = true }) {
                         </button>
                         <button
                           type="submit"
-                          disabled={isUploading || !selectedFileBase64}
+                          disabled={isUploading || isProcessing || selectedFiles.length === 0}
                           className="min-h-[44px] px-5 py-2 rounded-xl bg-[#D86C9A] hover:bg-[#C43A6B] disabled:opacity-50 text-white text-xs font-semibold tracking-wider flex items-center gap-2 shadow-xs cursor-pointer"
                         >
                           {isUploading ? (
-                            <span>{t.memoryWall.submitting}</span>
+                            <span>
+                              Uploading {uploadProgress.current} of {uploadProgress.total}...
+                            </span>
                           ) : (
                             <>
                               <Sparkles className="w-4 h-4" />
-                              <span>{t.memoryWall.submitPhoto}</span>
+                              <span>
+                                {selectedFiles.length > 1
+                                  ? `Save ${selectedFiles.length} Memories`
+                                  : t.memoryWall.submitPhoto}
+                              </span>
                             </>
                           )}
                         </button>

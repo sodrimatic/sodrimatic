@@ -20,7 +20,7 @@ export default function GameTitleBoard({ title }) {
           className="absolute inset-0 w-full h-full object-fill pointer-events-none"
         />
         <div className="relative z-10 px-4 sm:px-8 py-0.5 flex items-center justify-center w-full">
-          <h3 className="font-bodoni text-base sm:text-xl md:text-2xl lg:text-[26px] text-white font-bold tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] whitespace-nowrap uppercase">
+          <h3 className="font-lora text-base sm:text-xl md:text-2xl lg:text-[26px] text-white font-bold tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] whitespace-nowrap uppercase">
             {title}
           </h3>
         </div>

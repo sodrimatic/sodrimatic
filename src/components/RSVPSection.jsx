@@ -26,7 +26,6 @@ export default function RSVPSection() {
 
   const [fullName, setFullName] = useState('');
   const [isAttending, setIsAttending] = useState(true);
-  const [message, setMessage] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -46,7 +45,7 @@ export default function RSVPSection() {
       await submitRsvp({
         name: fullName.trim(),
         attending: isAttending,
-        message: message.trim(),
+        message: '',
       });
 
       setIsSuccess(true);
@@ -69,7 +68,6 @@ export default function RSVPSection() {
   const resetForm = () => {
     setFullName('');
     setIsAttending(true);
-    setMessage('');
     setIsSuccess(false);
   };
 
@@ -129,13 +127,13 @@ export default function RSVPSection() {
               {t.rsvp?.kicker || 'KINDLY FAVOR US WITH YOUR REPLY'}
             </span>
 
-            <h2 className="font-bodoni text-2xl sm:text-3xl lg:text-4xl text-[#2B1B12] mt-1 font-medium tracking-wide">
+            <h2 className="font-lora text-2xl sm:text-3xl lg:text-4xl text-[#2B1B12] mt-1 font-medium tracking-wide">
               {t.rsvp?.title || 'Will You Join Our Celebration?'}
             </h2>
 
             <div className="w-12 h-0.5 bg-[#B8860B] my-3 rounded-full mx-auto lg:mx-0 shadow-xs" />
 
-            <p className="font-beau italic text-2xl sm:text-3xl text-[#C43A6B] tracking-wide">
+            <p className="font-vibes italic text-2xl sm:text-3xl text-[#C43A6B] tracking-wide">
               our forever begins
             </p>
           </motion.div>
@@ -170,7 +168,7 @@ export default function RSVPSection() {
                       required
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      placeholder={t.rsvp?.namePlaceholder || 'e.g. Aakash & Ritu Shah'}
+                      placeholder={t.rsvp?.namePlaceholder || 'Dhriti & Soham'}
                       className="w-full min-h-[48px] px-4 py-3 rounded-xl border border-[#D4AF37]/50 bg-[#FFFDF8] text-sm sm:text-base text-[#2B1B12] placeholder-[#A08872]/60 focus:outline-none focus:border-[#C43A6B] focus:ring-2 focus:ring-[#C43A6B]/20 focus:bg-white transition-all shadow-xs"
                     />
                   </div>
@@ -190,15 +188,10 @@ export default function RSVPSection() {
                             : 'bg-[#FFFDF8] border border-[#D4AF37]/40 hover:border-[#D4AF37] text-[#5C4028]'
                         }`}
                       >
-                        <div>
-                          <span className={`block font-bodoni font-bold text-sm sm:text-base leading-tight ${isAttending ? 'text-[#8B264A]' : 'text-[#2B1B12]'}`}>
-                            {t.rsvp?.yes || 'Joyfully Accepts'}
-                          </span>
-                          <span className="block font-beau italic text-sm text-[#C43A6B] leading-none mt-0.5">
-                            attending with pleasure
-                          </span>
-                        </div>
-                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${
+                        <span className={`block font-lora font-bold text-sm sm:text-base leading-tight ${isAttending ? 'text-[#8B264A]' : 'text-[#2B1B12]'}`}>
+                          {t.rsvp?.yes || 'Joyfully Accepts'}
+                        </span>
+                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all shrink-0 ml-2 ${
                           isAttending ? 'border-[#C43A6B] bg-[#C43A6B] text-white shadow-xs' : 'border-[#C8A870]/60'
                         }`}>
                           {isAttending && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
@@ -214,35 +207,16 @@ export default function RSVPSection() {
                             : 'bg-[#FFFDF8] border border-[#D4AF37]/40 hover:border-[#D4AF37] text-[#5C4028]'
                         }`}
                       >
-                        <div>
-                          <span className={`block font-bodoni font-bold text-sm sm:text-base leading-tight ${!isAttending ? 'text-[#2B1B12]' : 'text-[#2B1B12]'}`}>
-                            {t.rsvp?.no || 'Regretfully Declines'}
-                          </span>
-                          <span className="block font-beau italic text-sm text-[#7A5A36] leading-none mt-0.5">
-                            celebrating in spirit
-                          </span>
-                        </div>
-                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${
+                        <span className={`block font-lora font-bold text-sm sm:text-base leading-tight ${!isAttending ? 'text-[#2B1B12]' : 'text-[#2B1B12]'}`}>
+                          {t.rsvp?.no || 'Regretfully Declines'}
+                        </span>
+                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all shrink-0 ml-2 ${
                           !isAttending ? 'border-[#5C4028] bg-[#5C4028] text-white shadow-xs' : 'border-[#C8A870]/60'
                         }`}>
                           {!isAttending && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
                         </div>
                       </button>
                     </div>
-                  </div>
-
-                  {/* FIELD 3: Message (Boxed Textarea) */}
-                  <div>
-                    <label className="text-xs font-bold uppercase tracking-[0.22em] text-[#7A5229] block mb-1.5">
-                      {t.rsvp?.messageLabel || 'A Note for Dhriti & Soham'}
-                    </label>
-                    <textarea
-                      rows={3}
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder={t.rsvp?.messagePlaceholder || 'Write your personal note for the couple...'}
-                      className="w-full p-3.5 rounded-xl border border-[#D4AF37]/50 bg-[#FFFDF8] text-sm text-[#2B1B12] placeholder-[#A08872]/60 focus:outline-none focus:border-[#C43A6B] focus:ring-2 focus:ring-[#C43A6B]/20 focus:bg-white transition-all resize-none shadow-xs leading-relaxed"
-                    />
                   </div>
 
                   {/* Error Notice */}
@@ -285,11 +259,11 @@ export default function RSVPSection() {
                     <CheckCircle2 className="w-7 h-7" />
                   </div>
 
-                  <h3 className="font-bodoni font-bold text-2xl sm:text-3xl text-[#2B1B12]">
+                  <h3 className="font-lora font-bold text-2xl sm:text-3xl text-[#2B1B12]">
                     {t.rsvp?.successTitle || 'RSVP Received'}
                   </h3>
 
-                  <p className="font-beau italic text-2xl sm:text-3xl text-[#C43A6B] mt-0.5">
+                  <p className="font-vibes italic text-2xl sm:text-3xl text-[#C43A6B] mt-0.5">
                     Dhriti &amp; Soham
                   </p>
 

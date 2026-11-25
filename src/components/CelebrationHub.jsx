@@ -22,17 +22,19 @@ import { Trophy, Heart, Camera } from 'lucide-react';
 
 export default function CelebrationHub() {
   const { t } = useLanguage();
-  const [activeTab, setActiveTab] = useState('tug'); // 'tug' | 'blessings' | 'gallery'
+  const [activeTab, setActiveTab] = useState('gallery'); // 'blessings' | 'gallery' | 'tug'
 
-  // Synchronize active tab with URL hash anchors (#cheer, #blessings, #gallery)
+  // Synchronize active tab with URL hash anchors (#blessings, #gallery, #cheer)
   useEffect(() => {
     const handleHashSync = () => {
       const hash = window.location.hash.toLowerCase();
-      if (hash === '#cheer' || hash === '#tug') {
-        setActiveTab('tug');
-      } else if (hash === '#blessings') {
+      if (hash === '#blessings') {
         setActiveTab('blessings');
+      } else if (hash === '#cheer' || hash === '#tug') {
+        setActiveTab('tug');
       } else if (hash === '#gallery' || hash === '#memories') {
+        setActiveTab('gallery');
+      } else if (!hash || hash === '#celebrate') {
         setActiveTab('gallery');
       }
     };
@@ -43,13 +45,6 @@ export default function CelebrationHub() {
   }, []);
 
   const tabs = [
-    {
-      id: 'tug',
-      label: t.celebrationHub?.tabTugOfWar || 'Tug of War',
-      mobileLabel: 'Tug of War',
-      icon: Trophy,
-      hash: '#cheer',
-    },
     {
       id: 'blessings',
       label: t.celebrationHub?.tabBlessings || 'Shower of Blessings',
@@ -63,6 +58,13 @@ export default function CelebrationHub() {
       mobileLabel: 'Memories',
       icon: Camera,
       hash: '#gallery',
+    },
+    {
+      id: 'tug',
+      label: t.celebrationHub?.tabTugOfWar || 'Tug of War',
+      mobileLabel: 'Tug of War',
+      icon: Trophy,
+      hash: '#cheer',
     },
   ];
 
@@ -102,11 +104,11 @@ export default function CelebrationHub() {
             <span className="font-josefin text-xs tracking-[0.25em] text-[#FDE08A] md:text-[#55693C] uppercase font-bold block mb-1 drop-shadow-xs md:drop-shadow-none">
               {t.celebrationHub?.kicker || 'THE CELEBRATION LOUNGE'}
             </span>
-            <h2 className="font-bodoni text-3xl sm:text-4xl lg:text-5xl text-white md:text-[#2B1B12] font-semibold tracking-wide drop-shadow-xs md:drop-shadow-none">
+            <h2 className="font-lora text-3xl sm:text-4xl lg:text-5xl text-white md:text-[#2B1B12] font-semibold tracking-wide drop-shadow-xs md:drop-shadow-none">
               {t.celebrationHub?.title || 'Celebration Lounge'}
             </h2>
             <div className="w-12 h-0.5 bg-[#FDE08A] md:bg-[#B8860B] mx-auto my-1.5 rounded-full shadow-xs" />
-            <p className="font-beau italic text-xl sm:text-2xl lg:text-3xl text-[#FCE7F3] md:text-[#C43A6B] mt-0.5 max-w-xl mx-auto px-2">
+            <p className="font-vibes italic text-xl sm:text-2xl lg:text-3xl text-[#FCE7F3] md:text-[#C43A6B] mt-0.5 max-w-xl mx-auto px-2">
               {t.celebrationHub?.subtitle || 'Cheer for the couple, shower your blessings, and explore our memory wall ♡'}
             </p>
           </motion.div>
@@ -130,13 +132,13 @@ export default function CelebrationHub() {
                     onClick={() => handleTabClick(tab)}
                     className={`min-h-[44px] sm:min-h-[48px] px-1 sm:px-4 py-2 rounded-xl font-josefin text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 cursor-pointer select-none text-center ${
                       isActive
-                        ? 'bg-[#849678] text-white shadow-sm'
-                        : 'text-[#2B1B12] hover:text-[#C43A6B] hover:bg-white/40'
+                        ? 'bg-[#C43A6B] text-white shadow-md'
+                        : 'text-[#2B1B12] hover:text-[#C43A6B] hover:bg-white/50'
                     }`}
                     aria-label={tab.label}
                     aria-pressed={isActive}
                   >
-                    <Icon className={`w-4 h-4 sm:w-4 sm:h-4 shrink-0 ${isActive ? 'text-white' : 'text-[#55693C]'}`} />
+                    <Icon className={`w-4 h-4 sm:w-4 sm:h-4 shrink-0 ${isActive ? 'text-white' : 'text-[#8A6318]'}`} />
                     <span className="hidden sm:inline truncate">{tab.label}</span>
                     <span className="sm:hidden text-[10px] leading-tight truncate">{tab.mobileLabel}</span>
                   </button>
@@ -147,16 +149,16 @@ export default function CelebrationHub() {
 
           {/* Active Tab Interactive Content with Instant Tab Switching & State Preservation */}
           <div className="w-full">
-            <div className={activeTab === 'tug' ? 'w-full block animate-in fade-in duration-300' : 'hidden'}>
-              <TugOfWar embedded={true} isActive={activeTab === 'tug'} />
-            </div>
-
             <div className={activeTab === 'blessings' ? 'w-full block animate-in fade-in duration-300' : 'hidden'}>
               <BlessingsSection embedded={true} isActive={activeTab === 'blessings'} />
             </div>
 
             <div className={activeTab === 'gallery' ? 'w-full block animate-in fade-in duration-300' : 'hidden'}>
               <MemoryWall embedded={true} isActive={activeTab === 'gallery'} />
+            </div>
+
+            <div className={activeTab === 'tug' ? 'w-full block animate-in fade-in duration-300' : 'hidden'}>
+              <TugOfWar embedded={true} isActive={activeTab === 'tug'} />
             </div>
           </div>
 

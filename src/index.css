@@ -20,9 +20,16 @@
   --color-text-highlight: #C43A6B;
   --color-text-disabled: #A89E82;
 
-  --font-beau: 'Beau Rivage', cursive;
-  --font-bodoni: 'Bodoni Moda', Georgia, serif;
+  --font-lora: 'Lora', Georgia, serif;
+  --font-greatvibes: 'Great Vibes', cursive;
+  --font-vibes: 'Great Vibes', cursive;
+  --font-montecarlo: 'Great Vibes', cursive;
+  --font-heading: 'Lora', Georgia, serif;
+  --font-cursive: 'Great Vibes', cursive;
+  --font-bodoni: 'Lora', Georgia, serif;
+  --font-beau: 'Great Vibes', cursive;
   --font-josefin: 'Josefin Sans', sans-serif;
+  --font-body: 'Josefin Sans', sans-serif;
 }
 
 @layer base {

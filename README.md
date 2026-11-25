@@ -71,7 +71,7 @@ Designed with **mobile-first ergonomics**, tactile interactions, and a soft Indi
 - 🎫 **Interactive Golden Scratch Card & Live Countdown**
   - Canvas-based interactive scratch-off card where guests use touch/mouse to uncover the wedding date & venue.
   - High-precision live countdown timer tracking days, hours, minutes, and seconds until **February 12, 2027**.
-  - One-tap Google Maps venue navigation to **Banquet 9, Malad West, Mumbai**.
+  - One-tap Google Maps venue navigation to **Banquet 9 & 10, Malad West, Mumbai**.
 
 - 👨‍👩‍👧‍👦 **Meet the Couple & Family Showcase**
   - Curated character profiles for the bride (**Dhriti**) and groom (**Soham**) with personality traits, stories, and fun trivia.
@@ -366,7 +366,7 @@ jobs:
 
 - **Couple**: Dhriti Shah & Soham Mehta
 - **Date**: Friday, 12 February 2027 · Celebrations begin at 4:30 PM
-- **Venue**: Banquet 9, Evershine Mall, Chincholi Bunder, New Link Road, Malad West, Mumbai
+- **Venue**: Banquet 9 & 10, Evershine Mall, Chincholi Bunder, New Link Road, Malad West, Mumbai
 
 ---
 

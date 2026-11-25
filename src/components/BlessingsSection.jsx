@@ -28,6 +28,16 @@ const DEFAULT_BLESSINGS = [
   'May your bond shine brighter with each passing year 🕊️',
 ];
 
+// Crisp, direct-tap blessings for the to-be-wed couple (1 to 3 words max)
+const QUICK_BLESSINGS = [
+  'Everlasting Love ♡',
+  'Happily Ever After ✨',
+  'Together Forever 🕊️',
+  'Joy & Laughter 🥂',
+  'Pure Bliss 🌸',
+  'Lifetime of Smiles 💛',
+];
+
 // Exact rope heights (px in 48px height viewBox) and rotations for 7 desktop cards
 // Rope points: col 0: 18px, col 1: 28px, col 2: 20px, col 3: 34px, col 4: 22px, col 5: 30px, col 6: 16px
 const DESKTOP_ROPE_CARDS = [
@@ -56,6 +66,7 @@ export default function BlessingsSection({ embedded = false }) {
 
   const [customBlessing, setCustomBlessing] = useState('');
   const [selectedTag, setSelectedTag] = useState(null);
+  const [lastSubmitted, setLastSubmitted] = useState('');
   const [recentBlessings, setRecentBlessings] = useState(() => {
     if (initialData.blessings && initialData.blessings.length > 0) {
       const valid = initialData.blessings.filter(
@@ -128,15 +139,19 @@ export default function BlessingsSection({ embedded = false }) {
 
   const handleSelectPreset = async (presetText) => {
     setSelectedTag(presetText);
+    setLastSubmitted(presetText);
     setBlessingCount((prev) => prev + 1);
     triggerPetals();
 
     // Prepend as newest of the 7 hanging blessings
     setRecentBlessings((prev) => [presetText, ...prev.filter((x) => x !== presetText)].slice(0, 7));
 
-    await submitBlessing(presetText);
     setShowSuccessToast(true);
-    setTimeout(() => setShowSuccessToast(false), 2500);
+    await submitBlessing(presetText);
+    setTimeout(() => {
+      setShowSuccessToast(false);
+      setSelectedTag(null);
+    }, 2800);
   };
 
   const handleCustomSubmit = async (e) => {
@@ -145,17 +160,21 @@ export default function BlessingsSection({ embedded = false }) {
 
     setIsSubmitting(true);
     const blessingText = customBlessing.trim();
+    setLastSubmitted(blessingText);
     setBlessingCount((prev) => prev + 1);
     triggerPetals();
 
     // Prepend as newest of the 7 hanging blessings
     setRecentBlessings((prev) => [blessingText, ...prev.filter((x) => x !== blessingText)].slice(0, 7));
 
-    await submitBlessing(blessingText);
     setCustomBlessing('');
-    setIsSubmitting(false);
     setShowSuccessToast(true);
-    setTimeout(() => setShowSuccessToast(false), 2500);
+    await submitBlessing(blessingText);
+    setIsSubmitting(false);
+    setTimeout(() => {
+      setShowSuccessToast(false);
+      setLastSubmitted('');
+    }, 2800);
   };
 
   // Ensure exactly 7 display items
@@ -369,21 +388,49 @@ export default function BlessingsSection({ embedded = false }) {
         </div>
 
         {/* ============================================================== */}
-        {/* JUST AND JUST THE TEXT BOX (No outer box, no preset buttons)   */}
+        {/* DIRECT SUBMISSION BLESSING BUTTONS & CUSTOM INPUT FORM         */}
         {/* ============================================================== */}
         <div className="w-full max-w-xl mx-auto mt-6 sm:mt-8 px-2">
+          {/* Quick 1-Tap Direct Submission Blessing Buttons */}
+          <div className="mb-3.5 sm:mb-4 text-center">
+            <span className="font-josefin text-[11px] sm:text-xs font-semibold tracking-wider text-[#FDE08A] md:text-[#55693C] uppercase block mb-2">
+              {t.blessings?.quickPrompt || 'Tap to shower instant blessings'}
+            </span>
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+              {QUICK_BLESSINGS.map((blessing) => {
+                const isSelected = selectedTag === blessing;
+                return (
+                  <button
+                    key={blessing}
+                    type="button"
+                    onClick={() => handleSelectPreset(blessing)}
+                    className={`min-h-[36px] sm:min-h-[40px] px-3 sm:px-4 py-1.5 rounded-full font-josefin text-xs sm:text-[13px] font-semibold tracking-wide transition-all duration-200 cursor-pointer select-none border shadow-xs active:scale-95 flex items-center justify-center ${
+                      isSelected
+                        ? 'bg-[#C43A6B] text-white border-[#C43A6B] shadow-md scale-105'
+                        : 'bg-[#FFFDF9]/95 text-[#2B1B12] hover:bg-[#C43A6B] hover:text-white border-[#C8A870]/70 hover:border-[#C43A6B] hover:shadow-sm'
+                    }`}
+                    aria-label={`Send blessing: ${blessing}`}
+                  >
+                    <span>{blessing}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Custom blessing input form */}
           <form onSubmit={handleCustomSubmit} className="relative flex items-center">
             <input
               type="text"
               value={customBlessing}
               onChange={(e) => setCustomBlessing(e.target.value)}
-              placeholder={t.blessings?.placeholder || 'Write your heartfelt blessing for Dhriti & Soham...'}
+              placeholder={t.blessings?.placeholder || 'Or write your own heartfelt blessing for Dhriti & Soham...'}
               className="w-full min-h-[46px] sm:min-h-[50px] pl-5 pr-20 py-2.5 rounded-full border border-[#C8A870]/70 bg-white/95 text-xs sm:text-sm font-josefin text-[#2E3B1C] placeholder-[#8C9E73] focus:outline-none focus:ring-2 focus:ring-[#849678] shadow-sm"
             />
             <button
               type="submit"
               disabled={isSubmitting || !customBlessing.trim()}
-              className="absolute right-1.5 min-h-[36px] sm:min-h-[40px] px-5 rounded-full bg-[#4E6B34] md:bg-[#849678] hover:bg-[#3D5528] disabled:opacity-40 text-white font-josefin text-xs font-semibold tracking-wider transition-all active:scale-95 cursor-pointer flex items-center justify-center shadow-xs"
+              className="absolute right-1.5 min-h-[36px] sm:min-h-[40px] px-5 rounded-full bg-[#C43A6B] hover:bg-[#A82B55] disabled:opacity-40 text-white font-josefin text-xs font-semibold tracking-wider transition-all active:scale-95 cursor-pointer flex items-center justify-center shadow-md"
               aria-label="Submit Blessing"
             >
               <span>Send</span>
@@ -397,9 +444,11 @@ export default function BlessingsSection({ embedded = false }) {
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="mt-2.5 text-center text-xs font-josefin text-[#FDE08A] md:text-[#55693C] font-semibold"
+                className="mt-2.5 text-center text-xs sm:text-sm font-josefin text-[#FDE08A] md:text-[#55693C] font-semibold"
               >
-                Your blessing is now hanging on the wishing vine! Thank you!
+                {lastSubmitted
+                  ? `"${lastSubmitted}" added to the vine! Thank you! ♡`
+                  : 'Your blessing is now hanging on the wishing vine! Thank you! ♡'}
               </motion.div>
             )}
           </AnimatePresence>

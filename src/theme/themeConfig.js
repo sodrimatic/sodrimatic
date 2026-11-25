@@ -57,11 +57,17 @@ export const themeConfig = {
   },
 
   fonts: {
-    // Romantic display accent (Couple names, special statements)
-    beauRivage: "'Beau Rivage', cursive",
+    // Romantic cursive display accent (Couple names, special statements)
+    cursive: "'Great Vibes', cursive",
+    greatVibes: "'Great Vibes', cursive",
+    monteCarlo: "'Great Vibes', cursive",
+    beauRivage: "'Great Vibes', cursive",
     // Editorial headings (Section titles, event titles, numerals)
-    bodoniModa: "'Bodoni Moda', Georgia, serif",
+    heading: "'Lora', Georgia, serif",
+    lora: "'Lora', Georgia, serif",
+    bodoniModa: "'Lora', Georgia, serif",
     // UI, navigation, body, buttons, stepper
+    body: "'Josefin Sans', sans-serif",
     josefinSans: "'Josefin Sans', sans-serif",
   },
 

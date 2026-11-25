@@ -104,7 +104,7 @@ export default function Navbar({ onReplayIntro }) {
             <a
               href="#home"
               onClick={(e) => handleNavClick(e, '#home')}
-              className="font-bodoni font-bold text-xl sm:text-2xl tracking-widest text-[#3E4F2A] hover:text-[#C43A6B] transition-colors flex items-center gap-1.5"
+              className="font-lora font-bold text-xl sm:text-2xl tracking-widest text-[#3E4F2A] hover:text-[#C43A6B] transition-colors flex items-center gap-1.5"
             >
               <span>{t.nav.brand}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#D86C9A]" />

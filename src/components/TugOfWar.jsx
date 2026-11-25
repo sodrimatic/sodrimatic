@@ -85,19 +85,19 @@ function TugScoreBadge({ team, count, label, isBride, isLeading, isTied }) {
       {/* Content inside cartouche */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center px-2 py-1">
         <span
-          className={`font-josefin font-bold text-[10.5px] sm:text-xs tracking-wider uppercase block ${isBride ? 'text-[#D86C9A]' : 'text-[#3E5C2A]'
+          className={`font-josefin font-bold text-[10.5px] sm:text-xs tracking-wider uppercase block ${isBride ? 'text-[#D86C9A]' : 'text-[#243E5E]'
             }`}
         >
           {label}
         </span>
         <span
-          className={`font-bodoni font-bold text-2xl sm:text-3xl lg:text-4xl tabular-nums leading-none my-0.5 sm:my-1 ${isBride ? 'text-[#C43A6B]' : 'text-[#24461E]'
+          className={`font-lora font-bold text-2xl sm:text-3xl lg:text-4xl tabular-nums leading-none my-0.5 sm:my-1 ${isBride ? 'text-[#C43A6B]' : 'text-[#1D3557]'
             }`}
         >
           {count}
         </span>
         <span
-          className={`font-josefin text-[8.5px] sm:text-[10px] font-semibold tracking-wider uppercase ${isBride ? 'text-[#D86C9A]' : 'text-[#5E8339]'
+          className={`font-josefin text-[8.5px] sm:text-[10px] font-semibold tracking-wider uppercase ${isBride ? 'text-[#D86C9A]' : 'text-[#3E5C8A]'
             }`}
         >
           {statusText}
@@ -315,7 +315,7 @@ export default function TugOfWar({ embedded = false, isActive = true }) {
 
         {/* Dynamic Status Proclamation (Sleek & Minimal, No Emojis) */}
         <div className="text-center mt-2 sm:mt-4 mb-3">
-          <p className="font-bodoni text-base sm:text-lg text-[#FCE7F3] md:text-[#C43A6B] font-semibold tracking-wide">
+          <p className="font-lora text-base sm:text-lg text-[#FCE7F3] md:text-[#C43A6B] font-semibold tracking-wide">
             {scoreDelta < 0
               ? 'Bride Squad takes the lead!'
               : scoreDelta > 0
@@ -343,7 +343,7 @@ export default function TugOfWar({ embedded = false, isActive = true }) {
           <motion.button
             whileTap={{ scale: 0.96 }}
             onClick={cheerGroom}
-            className="flex-1 min-h-[44px] sm:min-h-[48px] px-4 sm:px-6 py-2.5 rounded-full bg-[#4E6B34] hover:bg-[#3D5528] active:bg-[#2D401D] text-white font-josefin text-xs sm:text-sm font-semibold tracking-wider transition-all shadow-sm active:scale-95 cursor-pointer text-center select-none"
+            className="flex-1 min-h-[44px] sm:min-h-[48px] px-4 sm:px-6 py-2.5 rounded-full bg-[#243E5E] hover:bg-[#1A2E46] active:bg-[#122032] text-white font-josefin text-xs sm:text-sm font-semibold tracking-wider transition-all shadow-md active:scale-95 cursor-pointer text-center select-none"
             aria-label="Cheer for Soham"
           >
             Cheer for Soham

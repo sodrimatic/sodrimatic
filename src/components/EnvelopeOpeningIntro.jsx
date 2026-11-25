@@ -206,7 +206,7 @@ export default function EnvelopeOpeningIntro({ onOpenComplete }) {
             className="relative z-30 w-full max-w-5xl mx-auto px-5 sm:px-6 pt-6 sm:pt-8 flex items-center justify-between shrink-0"
           >
             <div className="flex items-center gap-2">
-              <span className="font-bodoni font-bold text-sm sm:text-base tracking-[0.25em] text-[#3E4F2A] uppercase drop-shadow-[0_1px_4px_rgba(255,255,255,0.9)]">
+              <span className="font-lora font-bold text-sm sm:text-base tracking-[0.25em] text-[#3E4F2A] uppercase drop-shadow-[0_1px_4px_rgba(255,255,255,0.9)]">
                 D&amp;S
               </span>
             </div>
@@ -241,7 +241,7 @@ export default function EnvelopeOpeningIntro({ onOpenComplete }) {
               <span className="font-josefin text-[10px] sm:text-xs tracking-[0.3em] text-[#7DA457] uppercase font-semibold block drop-shadow-[0_1px_3px_rgba(255,255,255,0.95)]">
                 {t.intro?.kicker || 'A LITTLE NOTE FOR A BIGGER CHAPTER'}
               </span>
-              <h1 className="font-bodoni text-xl sm:text-2xl md:text-3xl text-[#3E4F2A] font-medium tracking-wide mt-1 drop-shadow-[0_1px_4px_rgba(255,255,255,0.95)]">
+              <h1 className="font-lora text-xl sm:text-2xl md:text-3xl text-[#3E4F2A] font-medium tracking-wide mt-1 drop-shadow-[0_1px_4px_rgba(255,255,255,0.95)]">
                 {t.intro?.together || 'Dhriti & Soham'}
               </h1>
             </motion.div>
@@ -328,11 +328,11 @@ export default function EnvelopeOpeningIntro({ onOpenComplete }) {
                       />
                     </div>
 
-                    <h2 className="font-bodoni font-bold text-xs sm:text-base md:text-lg text-[#3E4F2A] tracking-wider uppercase">
+                    <h2 className="font-lora font-bold text-xs sm:text-base md:text-lg text-[#3E4F2A] tracking-wider uppercase">
                       Dhriti &amp; Soham
                     </h2>
 
-                    <p className="font-beau italic text-xs sm:text-base text-[#C43A6B] mt-0.5 tracking-wide">
+                    <p className="font-vibes italic text-xs sm:text-base text-[#C43A6B] mt-0.5 tracking-wide">
                       {t.intro?.foreverBegins || 'our forever begins'}
                     </p>
 

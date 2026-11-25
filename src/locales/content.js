@@ -65,7 +65,7 @@ export const content = {
     title: "Wedding Details",
     subtitle: "our forever begins",
     venueLabel: "THE VENUE",
-    venueName: "Banquet 9",
+    venueName: "Banquet 9 & 10",
     venueAddress: "Evershine Mall, Chincholi Bunder, New Link Road, Malad West, Mumbai",
     timing: "Celebrations begin at 4:30 PM",
     timingTag: "EVENING",
@@ -73,7 +73,7 @@ export const content = {
     revealedPrefix: "our wedding date is:",
     revealedDate: "12 February 2027",
     revealedLocation: "Friday · Mumbai",
-    countdownTitle: "The Countdown Begins",
+    countdownTitle: "The Countdown has started",
     days: "Days",
     hours: "Hours",
     minutes: "Minutes",
@@ -93,13 +93,17 @@ export const content = {
       familySurname: "THE SHAH FAMILY",
       grandparentsLabel: "GRANDPARENTS",
       grandparents: [
-        "Dashrathlal Khemchandlal Shah",
-        "Jyotsna Dashrathlal Shah",
+        "Late Shri Dashrathlal Khemchandlal Shah",
+        "Late Smt Jyotsnaben Dashrathlal Shah",
+      ],
+      grandparents2: [
+        "Shri Harshadbhai Ramanlal Shah",
+        "Smt Kundanben Harshad Shah",
       ],
       parentsLabel: "PARENTS",
       parents: [
-        "Kalpesh Dashrathlal Shah",
-        "Ami Kalpesh Shah",
+        "Shri Kalpesh Dashrathlal Shah",
+        "Smt Ami Kalpesh Shah",
       ],
       siblingsLabel: "SIBLING",
       siblings: [
@@ -110,13 +114,17 @@ export const content = {
       familySurname: "THE MEHTA FAMILY",
       grandparentsLabel: "GRANDPARENTS",
       grandparents: [
-        "Rameshchandra Mehta",
-        "Ritaben Rameshchandra Mehta",
+        "Late Shri Rameshchandra Shankardas Mehta",
+        "Late Smt Ritaben Rameshchandra Mehta",
+      ],
+      grandparents2: [
+        "Late Shri Chhabildas Dhanji Bhuva",
+        "Late Smt Elaben Chhabildas Bhuva",
       ],
       parentsLabel: "PARENTS",
       parents: [
-        "Manish Rameshchandra Mehta",
-        "Jigna Manish Mehta",
+        "Shri Manish Rameshchandra Mehta",
+        "Smt Jigna Manish Mehta",
       ],
       siblingsLabel: "SIBLING",
       siblings: [
@@ -131,7 +139,7 @@ export const content = {
     title: "Celebration Lounge",
     subtitle: "Cheer for the couple, shower your blessings, and explore our memory wall ♡",
     tabTugOfWar: "Tug of War",
-    tabBlessings: "Shower of Blessings",
+    tabBlessings: "Blessings",
     tabGallery: "Memory Wall",
   },
 
@@ -145,7 +153,8 @@ export const content = {
   // Section 5B: Shower of Blessings
   blessings: {
     title: "Shower of Blessings",
-    placeholder: "Write your heartfelt blessing for Dhriti & Soham...",
+    quickPrompt: "Tap to shower instant blessings",
+    placeholder: "Or write your own heartfelt blessing for Dhriti & Soham...",
   },
 
   // Section 5C: Memory Wall
@@ -165,16 +174,20 @@ export const content = {
     kicker: "KINDLY FAVOR US WITH YOUR REPLY",
     title: "Will You Join Our Celebration?",
     nameLabel: "Your Full Name",
-    namePlaceholder: "e.g. Aakash & Ritu Shah",
+    namePlaceholder: "Dhriti & Soham",
     attendingLabel: "Are you attending?",
     yes: "Joyfully Accepts",
     no: "Regretfully Declines",
-    messageLabel: "A Note for Dhriti & Soham",
-    messagePlaceholder: "Write your personal note for the couple...",
     submit: "CONFIRM RSVP",
     submitting: "Submitting...",
     successTitle: "RSVP Received",
     errorNotice: "Something went wrong. Please try again.",
+  },
+
+  // Section 7: Footer
+  footer: {
+    tagline: "Made with some Love, Magic and Drama by #SoDrimatic.",
+    rights: "All rights reserved.",
   },
 };
 
